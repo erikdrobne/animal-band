@@ -1,0 +1,12 @@
+{
+  "name": "animal-band",
+  "version": "1.0.0",
+  "description": "Music app",
+  "main": "app.js",
+  "repository": {
+    "url": "git@github.com:erikdrobne/animal-band.git",
+    "type": "git"
+  },
+  "author": "Erik Drobne <erik.drobne@gmail.com>",
+  "license": "MIT"
+}
