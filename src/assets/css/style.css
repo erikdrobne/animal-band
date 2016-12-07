@@ -2,3 +2,69 @@ html, body {
     width: 100%;
     height: 100%;
 }
+
+
+/* Buttons */
+
+button:focus {
+    outline: 0;
+}
+
+.btn {
+    border: 1px solid grey;
+    padding: 5px;
+    font-size: 15px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.btn--play {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    transition: all .2s ease-in-out;
+}
+
+.btn--play:active {
+    transform: scale(1.2);
+}
+
+.btn--play:hover {
+    background-color: #f2f2f2;
+}
+
+.btn--play .play-icon {
+    margin-left: 19px;
+}
+
+.play-icon {
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-left: 16px solid #000;
+    border-bottom: 12px solid transparent;
+}
+
+.pause-icon {
+    width: 4px;
+    height: 16px;
+    border-right: 4px solid #000;
+    border-left: 4px solid #000;
+}
+
+.band {}
+
+.timeline {
+    transition-property: all .2s ease-in-out;
+}
+
+.timeline .controls {
+    text-align: center;
+    margin-top: -30px;
+}
+
+.timeline .sequencer {
+    margin: 0 auto;
+    max-width: 600px;
+    height: 300px;
+}

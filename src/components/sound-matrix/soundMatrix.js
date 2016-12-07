@@ -16,7 +16,7 @@ define([
     }
 
     function setDefaultMatrix() {
-        matrix = soundMatrixConstants.getMatrix()
+        matrix.slice();
     }
 
     function setRhytm() {

@@ -5,13 +5,33 @@
     <meta charset="utf-8">
     <title>Animal band</title>
 
+    <link rel="stylesheet" type="text/css" href="./src/assets/css/simple-grid.css" />
     <link rel="stylesheet" type="text/css" href="./src/assets/css/style.css" />
 </head>
 
 <body>
     <div id="animalBand">
-        <section class="band"></section>
-        <section class="timeline"></section>
+        <section class="band">
+            <div class="row">
+                <div class="col-12">
+                    Animation
+                </div>
+            </div>
+        </section>
+        <section class="timeline">
+            <div class="row">
+                <div class="col-12">
+                    <div class="controls">
+                        <button class="btn btn--play">
+                            <div class="play-icon"></div>
+                        </button>
+                    </div>
+                    <div class="sequencer">
+
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script data-main="src/app" src="node_modules/requirejs/require.js"></script>
