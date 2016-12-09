@@ -1,22 +1,22 @@
-define([
-    './soundMatrixConstants'
-], function () {
+define('soundMatrix', [
+    'soundMatrixConstants'
+], function (soundMatrixConstants) {
     'use strict';
+
+    var matrix = setDefaultMatrix();
 
     return {
         getMatrix: getMatrix,
         setRhytm: setRhytm,
         setDefaultMatrix: setDefaultMatrix
-    };
-
-    var matrix = setDefaultMatrix();
+    }
 
     function getMatrix() {
         return matrix;
     }
 
     function setDefaultMatrix() {
-        matrix.slice();
+        return soundMatrixConstants.getMatrix().slice();
     }
 
     function setRhytm() {

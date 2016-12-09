@@ -1,6 +1,5 @@
-define(function (require) {
+define('AppController', ['soundMatrix'], function (soundMatrix) {
     'use strict';
 
-    var soundMatrix = require('./sound-matrix/soundMatrix');
-    soundMatrix.getMatrix();
+    console.log(soundMatrix.getMatrix());
 });

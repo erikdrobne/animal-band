@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <title>Animal band</title>
 
-    <link rel="stylesheet" type="text/css" href="./src/assets/css/simple-grid.css" />
-    <link rel="stylesheet" type="text/css" href="./src/assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.min.css" />
 </head>
 
 <body>
@@ -26,15 +25,14 @@
                             <div class="play-icon"></div>
                         </button>
                     </div>
-                    <div class="sequencer">
-
-                    </div>
+                    <div class="sequencer"></div>
                 </div>
             </div>
         </section>
     </div>
 
-    <script data-main="src/app" src="node_modules/requirejs/require.js"></script>
+    <script data-main="./app" src="./vendor.js"></script>
+    <script src="./app.js"></script>
 </body>
 
 </html>

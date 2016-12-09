@@ -1,8 +1,8 @@
 requirejs.config({
-    baseUrl: 'src',
+    baseUrl: '../build',
     paths: {
         app: './app'
     }
 });
 
-requirejs(['components/AppController']);
+requirejs(['AppController']);
