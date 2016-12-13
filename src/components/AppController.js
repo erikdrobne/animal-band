@@ -1,5 +1,9 @@
-define('AppController', ['soundMatrix'], function (soundMatrix) {
+define('AppController', [
+    'soundMatrix',
+    'TimelineController',
+], function (soundMatrix, TimelineController) {
     'use strict';
 
-    console.log(soundMatrix.getMatrix());
+    soundMatrix.init();
+    TimelineController.renderSequencer();
 });

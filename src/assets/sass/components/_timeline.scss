@@ -1,13 +1,86 @@
 .timeline {
-    
+    .controls {
+        text-align: center;
+    }
 }
 
-.timeline .controls {
+.sequencer {
     text-align: center;
+    .note {
+        padding: 20px;
+        display: inline-block;
+        &__symbol {
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: $color-grey;
+            transition: all .2s ease-in-out;
+            cursor: pointer;
+            &:active {
+                transform: scale(1.4);
+            }
+        }
+        &.highlighted {
+            .note__symbol {
+                transform: scale(1.4);
+            }
+        }
+    }
 }
 
-.timeline .sequencer {
-    margin: 0 auto;
-    max-width: 600px;
-    height: 300px;
+.instrument {
+    &[data-id="basskick"] {
+        .note {
+            &.active {
+                .note__symbol {
+                    background-color: $color-yellow;
+                }
+            }
+        }
+    }
+    &[data-id="cowbell"] {
+        .note {
+            &.active {
+                .note__symbol {
+                    background-color: $color-green;
+                }
+            }
+        }
+    }
+    &[data-id="hihat"] {
+        .note {
+            &.active {
+                .note__symbol {
+                    background-color: $color-pink;
+                }
+            }
+        }
+    }
+    &[data-id="snare"] {
+        .note {
+            &.active {
+                .note__symbol {
+                    background-color: $color-red;
+                }
+            }
+        }
+    }
+    &[data-id="tom1"] {
+        .note {
+            &.active {
+                .note__symbol {
+                    background-color: $color-blue;
+                }
+            }
+        }
+    }
+    &[data-id="tom2"] {
+        .note {
+            &.active {
+                .note__symbol {
+                    background-color: $color-blue;
+                }
+            }
+        }
+    }
 }

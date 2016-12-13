@@ -1,10 +1,25 @@
-@import 'vendors/simple-grid.scss';
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
 
-@import 'components/_buttons.scss';
-@import 'components/_timeline.scss';
-@import 'components/_band.scss';
+$font-family: 'Lato', Helvetica, sans-serif;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-heavy: 700;
+$font-height: 1.5;
+
+$color-black: #000000;
+$color-grey: #cccccc;
+$color-yellow: #f4e242;
+$color-green: #2ee89a;
+$color-pink: #7310e5;
+$color-red: #ef093f;
+$color-blue: #090def;
 
 html, body {
     width: 100%;
     height: 100%;
+    font-family: $font-family;
 }
+
+@import 'components/_buttons.scss';
+@import 'components/_timeline.scss';
+@import 'components/_band.scss';
