@@ -31,6 +31,7 @@ define('AudioController', [
     }
 
     function startPlaying() {
+        noteTime = 0.0;
         startTime = context.currentTime + 0.005;
         scheduleSounds(buffer.bufferlist);
         timerWorker.postMessage("start");
