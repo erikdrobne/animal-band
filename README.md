@@ -6,15 +6,23 @@ Audio sampler
 #### 1. Install node
 #### 1. Install npm
 ```bash
-    $ npm install npm -g
+    $ npm install -g npm
 ```
-#### 2. Install gulp globally
+#### 3. Install yarn
 ```bash
-    $ npm install --global gulp
+    $ npm install -g yarn
+```
+#### 4. Install gulp globally
+```bash
+    $ npm install --g gulp
 ```
 ### Run
 #### 1. Navigate to project dir
-#### 2. Run gulp
+#### 2. Run yarn
+```bash
+    $ yarn
+```
+#### 3. Run gulp
 ```bash
     $ gulp
 ```
