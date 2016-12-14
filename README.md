@@ -4,7 +4,7 @@ Audio sampler
 
 ### Setup
 #### 1. Install node
-#### 1. Install npm
+#### 2. Install npm
 ```bash
     $ npm install -g npm
 ```
