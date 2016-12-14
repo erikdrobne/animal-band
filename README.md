@@ -12,7 +12,7 @@ Audio sampler
 ```bash
     $ npm install -g yarn
 ```
-#### 4. Install gulp globally
+#### 4. Install gulp
 ```bash
     $ npm install --g gulp
 ```
@@ -26,3 +26,5 @@ Audio sampler
 ```bash
     $ gulp
 ```
+
+### Have fun
