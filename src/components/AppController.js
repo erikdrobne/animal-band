@@ -4,5 +4,4 @@ define('AppController', [
     'use strict';
 
     TimelineController.init();
-    TimelineController.renderSequencer();
 });

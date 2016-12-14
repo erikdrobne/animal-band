@@ -1,8 +1,9 @@
 define('TimelineController', [
     'soundMatrix',
     'soundMatrixService',
-    'domHelpers'
-], function(soundMatrix, soundMatrixService, domHelpers) {
+    'domHelpers',
+    'AudioController'
+], function(soundMatrix, soundMatrixService, domHelpers, AudioController) {
     'use strict';
 
     var $timeline = document.querySelector('.timeline'),
@@ -15,7 +16,9 @@ define('TimelineController', [
     }
 
     function init() {
-        togglePlaying()
+        renderSequencer();
+        togglePlaying();
+        AudioController.init();
     }
 
     function renderSequencer() {
@@ -38,7 +41,7 @@ define('TimelineController', [
             })
             $sequencer.appendChild($instrument);
         });
-        toggleNote();
+        toggleNotes();
     }
 
     function togglePlaying() {
@@ -60,7 +63,7 @@ define('TimelineController', [
             });
     }
 
-    function toggleNote() {
+    function toggleNotes() {
         var $noteSymbols = $timeline.querySelectorAll('.note__symbol'),
         i;
 
@@ -90,8 +93,6 @@ define('TimelineController', [
                     } else {
                         this.classList.remove('active');
                     }
-
-                    console.log(soundMatrix.matrix);
                 });
         }
     }

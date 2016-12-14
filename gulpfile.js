@@ -4,7 +4,8 @@ var gulp   = require('gulp'),
     sass   = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifyCss = require('gulp-minify-css'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    webserver = require('gulp-webserver');
 
 var styles = [
         'src/assets/sass/main.scss'
@@ -51,7 +52,19 @@ gulp.task('build-js-components', function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('default', ['copy-html', 'copy-img', 'copy-sounds', 'build-css', 'build-js-vendor', 'build-js-components'], function() {
+gulp.task('webserver', function() {
+  gulp.src('build')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: {
+          enable: true,
+          path: 'index'
+      },
+      open: true
+    }));
+});
+
+gulp.task('default', ['copy-html', 'copy-img', 'copy-sounds', 'build-css', 'build-js-vendor', 'build-js-components', 'webserver'], function() {
     gulp.watch('src/assets/sass/**/*.scss', ['build-css']);
     gulp.watch('src/assets/img/**/*.{gif,jpg,png,svg}', ['copy-img']);
     gulp.watch('src/assets/sounds/**/*.*', ['copy-sounds']);
