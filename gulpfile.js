@@ -60,7 +60,8 @@ gulp.task('webserver', function() {
           enable: true,
           path: 'index'
       },
-      open: true
+      open: true,
+      port:3002
     }));
 });
 
