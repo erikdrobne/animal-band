@@ -16,12 +16,7 @@
             background-color: $color-grey;
             transition: all .2s ease-in-out;
             cursor: pointer;
-            &:active {
-                transform: scale(1.4);
-            }
-        }
-        &.highlighted {
-            .note__symbol {
+            &:active, &.highlighted {
                 transform: scale(1.4);
             }
         }
@@ -30,56 +25,44 @@
 
 .instrument {
     &[data-id="basskick"] {
-        .note {
+        .note__symbol {
             &.active {
-                .note__symbol {
-                    background-color: $color-yellow;
-                }
+                background-color: $color-yellow;
             }
         }
     }
     &[data-id="cowbell"] {
-        .note {
+        .note__symbol {
             &.active {
-                .note__symbol {
-                    background-color: $color-green;
-                }
+                background-color: $color-green;
             }
         }
     }
     &[data-id="hihat"] {
-        .note {
+        .note__symbol {
             &.active {
-                .note__symbol {
-                    background-color: $color-pink;
-                }
+                background-color: $color-pink;
             }
         }
     }
     &[data-id="snare"] {
-        .note {
+        .note__symbol {
             &.active {
-                .note__symbol {
-                    background-color: $color-red;
-                }
+                background-color: $color-red;
             }
         }
     }
     &[data-id="tom1"] {
-        .note {
+        .note__symbol {
             &.active {
-                .note__symbol {
-                    background-color: $color-blue;
-                }
+                background-color: $color-blue;
             }
         }
     }
     &[data-id="tom2"] {
-        .note {
+        .note__symbol {
             &.active {
-                .note__symbol {
-                    background-color: $color-blue;
-                }
+                background-color: $color-blue;
             }
         }
     }

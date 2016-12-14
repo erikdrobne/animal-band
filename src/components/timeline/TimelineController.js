@@ -1,9 +1,11 @@
 define('TimelineController', [
-    'soundMatrix'
-], function(soundMatrix) {
+    'soundMatrixService',
+    'domHelpers'
+], function(soundMatrixService, domHelpers) {
     'use strict';
 
-    var isPlaying = false;
+    var $timeline = document.querySelector('.timeline'),
+        isPlaying = false;
 
     return {
         init: init,
@@ -16,9 +18,8 @@ define('TimelineController', [
     }
 
     function renderSequencer() {
-        var $sequencer = document.querySelector('.timeline .sequencer');
-
-        soundMatrix.getMatrix().map(function(instrument, index) {
+        var $sequencer = $timeline.querySelector('.sequencer');
+        soundMatrixService.matrix.map(function(instrument, index) {
             var $instrument = document.createElement('div');
             $instrument.className = 'instrument';
             $instrument.setAttribute('data-id', instrument.id);
@@ -26,20 +27,24 @@ define('TimelineController', [
                 var $note = document.createElement('div'),
                     $noteSymbol = document.createElement('div');
                 $noteSymbol.className = 'note__symbol';
+                $noteSymbol.setAttribute('data-index', index);
+                $noteSymbol.setAttribute('data-value', note);
+
                 $note.className = 'note';
-                $note.setAttribute('data-value', note);
                 $note.appendChild($noteSymbol);
+
                 $instrument.appendChild($note);
             });
             $sequencer.appendChild($instrument);
         });
+
+        toggleNote();
     }
 
     function togglePlaying() {
-        document.querySelector('.timeline .btn--play')
+        $timeline.querySelector('.btn--play')
             .addEventListener('click', function() {
                 isPlaying = !isPlaying;
-                console.log(isPlaying);
                 if(isPlaying) {
                     this.querySelector('.icon')
                         .classList.remove('icon--play');
@@ -52,6 +57,40 @@ define('TimelineController', [
                         .classList.add('icon--play');
                 }
 
-            }, false);
+            });
+    }
+
+    function toggleNote() {
+        var $noteSymbols = $timeline.querySelectorAll('.note__symbol'),
+        i;
+
+        for(i = 0; i < $noteSymbols.length; i++) {
+            $noteSymbols[i]
+                .addEventListener('click', function(e) {
+                    var index = parseInt(this.getAttribute('data-index')),
+                        instrument = domHelpers.findAncestor(this, 'instrument')
+                            .getAttribute('data-id'),
+                        value = this.getAttribute('data-value')
+
+                    if(!(typeof(value) === "boolean")) {
+                        if(value === "true") {
+                            value = true
+                        } else if(value === "false") {
+                            value = false
+                        } else {
+                            value = true
+                        }
+                    }
+
+                    soundMatrixService.setInstrumentPattern(instrument, index, !value);
+                    this.setAttribute('data-value', !value);
+
+                    if(!value === true) {
+                        this.classList.add('active');
+                    } else {
+                        this.classList.remove('active');
+                    }
+                });
+        }
     }
 })

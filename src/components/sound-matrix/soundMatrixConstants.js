@@ -8,13 +8,10 @@ define('soundMatrixConstants', function () {
         { id: 'snare', instrumentPattern: [false, false, false, false, false, false, false, false] },
         { id: 'tom1', instrumentPattern: [false, false, false, false, false, false, false, false] },
         { id: 'tom2', instrumentPattern: [false, false, false, false, false, false, false, false] }
+
     ];
 
     return {
-        getMatrix: getMatrix
-    }
-
-    function getMatrix() {
-        return matrix;
+        matrix: matrix
     }
 });
