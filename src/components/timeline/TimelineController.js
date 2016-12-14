@@ -1,7 +1,8 @@
 define('TimelineController', [
+    'soundMatrix',
     'soundMatrixService',
     'domHelpers'
-], function(soundMatrixService, domHelpers) {
+], function(soundMatrix, soundMatrixService, domHelpers) {
     'use strict';
 
     var $timeline = document.querySelector('.timeline'),
@@ -18,26 +19,25 @@ define('TimelineController', [
     }
 
     function renderSequencer() {
-        var $sequencer = $timeline.querySelector('.sequencer');
-        soundMatrixService.matrix.map(function(instrument, index) {
+        var $sequencer = $timeline.querySelector('.sequencer'),
+            matrix = soundMatrix.matrix;
+        matrix.result.map(function(instrument, index) {
             var $instrument = document.createElement('div');
             $instrument.className = 'instrument';
-            $instrument.setAttribute('data-id', instrument.id);
-            instrument.instrumentPattern.map(function(note, index) {
+            $instrument.setAttribute('data-id', instrument);
+
+            matrix.entities[instrument].map(function(note, index) {
                 var $note = document.createElement('div'),
                     $noteSymbol = document.createElement('div');
                 $noteSymbol.className = 'note__symbol';
                 $noteSymbol.setAttribute('data-index', index);
                 $noteSymbol.setAttribute('data-value', note);
-
                 $note.className = 'note';
                 $note.appendChild($noteSymbol);
-
                 $instrument.appendChild($note);
-            });
+            })
             $sequencer.appendChild($instrument);
         });
-
         toggleNote();
     }
 
@@ -74,22 +74,24 @@ define('TimelineController', [
 
                     if(!(typeof(value) === "boolean")) {
                         if(value === "true") {
-                            value = true
-                        } else if(value === "false") {
                             value = false
+                        } else if(value === "false") {
+                            value = true
                         } else {
                             value = true
                         }
                     }
 
-                    soundMatrixService.setInstrumentPattern(instrument, index, !value);
-                    this.setAttribute('data-value', !value);
+                    soundMatrixService.setInstrumentPattern(soundMatrix.matrix, instrument, index, value);
+                    this.setAttribute('data-value', value);
 
-                    if(!value === true) {
+                    if(value === true) {
                         this.classList.add('active');
                     } else {
                         this.classList.remove('active');
                     }
+
+                    console.log(soundMatrix.matrix);
                 });
         }
     }
