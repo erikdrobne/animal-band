@@ -55,8 +55,8 @@ gulp.task('build-js-components', function() {
 gulp.task('webserver', function() {
   gulp.src('build')
     .pipe(webserver({
-      livereload: true,
       directoryListing: {
+          livereload: true,
           enable: true,
           path: 'index'
       },

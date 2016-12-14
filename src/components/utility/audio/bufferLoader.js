@@ -15,36 +15,36 @@ define('bufferLoader', function() {
         xhr.open('GET', url, true);
         xhr.responseType = 'arraybuffer';
         xhr.onload = function() {
-        //     loader.context.decodeAudioData(
-        //         xhr.response,
-        //         function(buffer) {
-        //             if (!buffer) {
-        //                 alert('error decoding file data: ' + url);
-        //                 return;
-        //             }
-        //             loader.bufferList[index] = buffer;
-        //             if (++loader.loadCount == loader.urlList.length) {
-        //                 loader.onload(loader.bufferList);
-        //             }
-        //         }
-        //     );
-        }
+            loader.context.decodeAudioData(
+                xhr.response,
+                function(buffer) {
+                    if (!buffer) {
+                        alert('error decoding file data: ' + url);
+                        return;
+                    }
+                    loader.bufferList[index] = buffer;
+                    if (++loader.loadCount == loader.urlList.length) {
+                        loader.onload(loader.bufferList);
+                    }
+                }
+            );
+        };
         xhr.onerror = function() {
             alert('BufferLoader: XHR error');
-        }
+        };
         xhr.send();
-    }
+    };
 
     BufferLoader.prototype.load = function() {
         var i;
         for (i = 0; i < this.urlList.length; ++i) {
             this.loadBuffer(this.urlList[i], i);
         }
-    }
+    };
 
     return {
         getInstance: function(context, urlList, callback) {
             return new BufferLoader(context, urlList, callback);
         }
-    }
+    };
 });

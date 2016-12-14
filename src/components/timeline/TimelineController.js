@@ -1,9 +1,8 @@
 define('TimelineController', [
-    'soundMatrix',
-    'soundMatrixService',
+    'audioConfig',
     'domHelpers',
     'AudioController'
-], function(soundMatrix, soundMatrixService, domHelpers, AudioController) {
+], function(audioConfig, domHelpers, AudioController) {
     'use strict';
 
     var $timeline = document.querySelector('.timeline'),
@@ -13,7 +12,7 @@ define('TimelineController', [
         init: init,
         renderSequencer: renderSequencer,
         isPlaying: isPlaying
-    }
+    };
 
     function init() {
         renderSequencer();
@@ -23,7 +22,7 @@ define('TimelineController', [
 
     function renderSequencer() {
         var $sequencer = $timeline.querySelector('.sequencer'),
-            matrix = soundMatrix.matrix;
+            matrix = audioConfig.matrix;
         matrix.result.map(function(instrument, index) {
             var $instrument = document.createElement('div');
             $instrument.className = 'instrument';
@@ -38,7 +37,7 @@ define('TimelineController', [
                 $note.className = 'note';
                 $note.appendChild($noteSymbol);
                 $instrument.appendChild($note);
-            })
+            });
             $sequencer.appendChild($instrument);
         });
         toggleNotes();
@@ -53,13 +52,14 @@ define('TimelineController', [
                         .classList.remove('icon--play');
                     this.querySelector('.icon')
                         .classList.add('icon--pause');
+                    AudioController.startPlaying();
                 } else {
                     this.querySelector('.icon')
                         .classList.remove('icon--pause');
                     this.querySelector('.icon')
                         .classList.add('icon--play');
+                    AudioController.stopPlaying();
                 }
-
             });
     }
 
@@ -73,19 +73,17 @@ define('TimelineController', [
                     var index = parseInt(this.getAttribute('data-index')),
                         instrument = domHelpers.findAncestor(this, 'instrument')
                             .getAttribute('data-id'),
-                        value = this.getAttribute('data-value')
+                        value = this.getAttribute('data-value');
 
-                    if(!(typeof(value) === "boolean")) {
+                    if(typeof(value) !== "boolean") {
                         if(value === "true") {
-                            value = false
-                        } else if(value === "false") {
-                            value = true
+                            value = false;
                         } else {
-                            value = true
+                            value = true;
                         }
                     }
 
-                    soundMatrixService.setInstrumentPattern(soundMatrix.matrix, instrument, index, value);
+                    audioConfig.matrix.entities[instrument][index] = value;
                     this.setAttribute('data-value', value);
 
                     if(value === true) {
@@ -96,4 +94,4 @@ define('TimelineController', [
                 });
         }
     }
-})
+});
