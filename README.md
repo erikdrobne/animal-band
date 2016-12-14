@@ -14,7 +14,7 @@ Audio sampler
 ```
 #### 4. Install gulp
 ```bash
-    $ npm install --g gulp
+    $ npm install -g gulp
 ```
 ### Run
 #### 1. Navigate to project dir
