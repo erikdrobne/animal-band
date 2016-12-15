@@ -1,8 +1,8 @@
 define('TimelineController', [
+    'timelineService',
     'audioConfig',
-    'domHelpers',
     'AudioController'
-], function(audioConfig, domHelpers, AudioController) {
+], function(timelineService, audioConfig, AudioController) {
     'use strict';
 
     var $timeline = document.querySelector('.timeline'),
@@ -40,7 +40,7 @@ define('TimelineController', [
             });
             $sequencer.appendChild($instrument);
         });
-        toggleNotes();
+        toggleActiveNotes();
     }
 
     function togglePlaying() {
@@ -63,35 +63,21 @@ define('TimelineController', [
             });
     }
 
-    function toggleNotes() {
+    function toggleActiveNotes() {
         var $noteSymbols = $timeline.querySelectorAll('.note__symbol'),
         i;
 
         for(i = 0; i < $noteSymbols.length; i++) {
             $noteSymbols[i]
-                .addEventListener('click', function(e) {
-                    var index = parseInt(this.getAttribute('data-index')),
-                        instrument = domHelpers.findAncestor(this, 'instrument')
-                            .getAttribute('data-id'),
-                        value = this.getAttribute('data-value');
-
-                    if(typeof(value) !== "boolean") {
-                        if(value === "true") {
-                            value = false;
-                        } else {
-                            value = true;
-                        }
+                .addEventListener(
+                    'click',
+                    function() {
+                        timelineService.toggleActiveNote.call(
+                            this,
+                            audioConfig.matrix
+                        ); 
                     }
-
-                    audioConfig.matrix.entities[instrument][index] = value;
-                    this.setAttribute('data-value', value);
-
-                    if(value === true) {
-                        this.classList.add('active');
-                    } else {
-                        this.classList.remove('active');
-                    }
-                });
+                );
         }
     }
 });
