@@ -1,4 +1,6 @@
 define('audioService', function() {
+    'use strict';
+
     return {
         getRhytmIndexEvent: getRhytmIndexEvent
     };

@@ -1,6 +1,8 @@
 define('timelineService', [
     'domHelpers'
 ], function(domHelpers) {
+    'use strict';
+    
     return {
         toggleActiveNote: toggleActiveNote,
         highlightNote: highlightNote

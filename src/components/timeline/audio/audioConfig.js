@@ -1,6 +1,6 @@
 define('audioConfig', function () {
     'use strict';
-
+    
     return {
         matrix: {
             entities: {

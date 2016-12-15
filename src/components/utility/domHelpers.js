@@ -1,4 +1,6 @@
 define('domHelpers', function() {
+    'use strict';
+    
     return {
         findAncestor: findAncestor
     };

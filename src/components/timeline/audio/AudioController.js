@@ -3,6 +3,7 @@ define('AudioController', [
     'audioConfig',
     'audioService'
 ], function(bufferLoader, audioConfig, audioService) {
+    'use strict';
 
     var buffer,
         context,
