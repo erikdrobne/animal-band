@@ -11,6 +11,7 @@ var styles = [
         'src/assets/sass/main.scss'
     ],
     jsFiles = [
+        'node_modules/pixi.js/dist/pixi.min.js',
         'node_modules/requirejs/require.js'
     ];
 

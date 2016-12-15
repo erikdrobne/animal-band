@@ -5,7 +5,7 @@ define('TimelineController', [
 ], function(timelineService, audioConfig, AudioController) {
     'use strict';
 
-    var $timeline = document.querySelector('.timeline'),
+    var $timeline = document.querySelector('#animalBand .timeline'),
         isPlaying = false;
 
     return {
