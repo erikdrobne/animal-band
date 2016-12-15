@@ -51,11 +51,11 @@ define('TimelineController', [
                     this.querySelector('.icon')
                         .classList.remove('icon--play');
                     this.querySelector('.icon')
-                        .classList.add('icon--pause');
+                        .classList.add('icon--stop');
                     AudioController.startPlaying();
                 } else {
                     this.querySelector('.icon')
-                        .classList.remove('icon--pause');
+                        .classList.remove('icon--stop');
                     this.querySelector('.icon')
                         .classList.add('icon--play');
                     AudioController.stopPlaying();
@@ -75,7 +75,7 @@ define('TimelineController', [
                         timelineService.toggleActiveNote.call(
                             this,
                             audioConfig.matrix
-                        ); 
+                        );
                     }
                 );
         }

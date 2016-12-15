@@ -39,5 +39,11 @@ button:focus {
             border-right: 4px solid #000;
             border-left: 4px solid #000;
         }
+        .icon--stop {
+            margin-left: 14px;
+            width: 18px;
+            height: 18px;
+            background-color: $color-black;
+        }
     }
 }
