@@ -13,13 +13,15 @@ define('AudioController', [
         loopLength = audioConfig.loopLength,
         quarterNoteTime = 60 / tempo,
         noteTime = 0.0,
-        rhythmIndex = 0
+        rhythmIndex = 0,
+        gainNode
     ;
 
     return {
         init: init,
         startPlaying: startPlaying,
-        stopPlaying: stopPlaying
+        stopPlaying: stopPlaying,
+        setGainValue: setGainValue
     };
 
     function init() {
@@ -27,6 +29,7 @@ define('AudioController', [
         if(context) {
             setAudioBuffer();
             setTimeWorker();
+            setEffectsDefault();
         }
     }
 
@@ -72,6 +75,15 @@ define('AudioController', [
         timerWorker.postMessage('init');
     }
 
+    function setEffectsDefault() {
+        gainNode = context.createGain();
+        gainNode.gain.value = 1;
+    }
+
+    function setGainValue(value) {
+        gainNode.gain.value = value;
+    }
+
     function scheduleSounds() {
             var currentTime = context.currentTime;
             currentTime -= startTime;
@@ -90,7 +102,10 @@ define('AudioController', [
     function playNote(buffer, time) {
         var source = context.createBufferSource();
         source.buffer = buffer;
-        source.connect(context.destination);
+
+        source.connect(gainNode);
+       
+        gainNode.connect(context.destination);
         source.start(time);
     }
 

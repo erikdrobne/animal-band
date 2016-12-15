@@ -18,6 +18,7 @@ define('TimelineController', [
         renderSequencer();
         togglePlaying();
         AudioController.init();
+        updateGainValue();
     }
 
     function renderSequencer() {
@@ -63,7 +64,17 @@ define('TimelineController', [
             });
     }
 
-    function toggleActiveNotes() {
+    function toggleActiveNotes() {}
+
+    function updateGainValue() {
+        $timeline.querySelector('.timeline .gain')
+            .addEventListener('input', function() {
+                AudioController.setGainValue(this.value/100);
+            });
+    }
+
+
+    function toggleNotes() {
         var $noteSymbols = $timeline.querySelectorAll('.note__symbol'),
         i;
 
