@@ -1,7 +1,8 @@
 define('AudioController', [
     'bufferLoader',
-    'audioConfig'
-], function(bufferLoader, audioConfig) {
+    'audioConfig',
+    'audioService'
+], function(bufferLoader, audioConfig, audioService) {
 
     var buffer,
         context,
@@ -111,6 +112,9 @@ define('AudioController', [
 
     function advanceNote() {
         var secondsPerBeat = 60.0 / tempo;
+
+        document.querySelector('.timeline')
+            .dispatchEvent(audioService.getRhytmIndexEvent(rhythmIndex));
         rhythmIndex++;
         if (rhythmIndex === loopLength) {
             rhythmIndex = 0;

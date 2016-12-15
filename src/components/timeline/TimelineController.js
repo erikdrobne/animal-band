@@ -17,8 +17,10 @@ define('TimelineController', [
     function init() {
         renderSequencer();
         togglePlaying();
+        toggleActiveNotes();
         AudioController.init();
         updateGainValue();
+        checkRhytmIndex();
     }
 
     function renderSequencer() {
@@ -41,7 +43,6 @@ define('TimelineController', [
             });
             $sequencer.appendChild($instrument);
         });
-        toggleActiveNotes();
     }
 
     function togglePlaying() {
@@ -64,17 +65,7 @@ define('TimelineController', [
             });
     }
 
-    function toggleActiveNotes() {}
-
-    function updateGainValue() {
-        $timeline.querySelector('.timeline .gain')
-            .addEventListener('input', function() {
-                AudioController.setGainValue(this.value/100);
-            });
-    }
-
-
-    function toggleNotes() {
+    function toggleActiveNotes() {
         var $noteSymbols = $timeline.querySelectorAll('.note__symbol'),
         i;
 
@@ -90,5 +81,19 @@ define('TimelineController', [
                     }
                 );
         }
+    }
+
+    function updateGainValue() {
+        $timeline.querySelector('.timeline .gain')
+            .addEventListener('input', function() {
+                AudioController.setGainValue(this.value/100);
+            });
+    }
+
+    function checkRhytmIndex() {
+        document.querySelector('.timeline')
+            .addEventListener('animalBand.audio.rhythmIndex', function(e) {
+                console.log('event handle', e);
+            });
     }
 });

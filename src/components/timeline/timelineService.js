@@ -30,4 +30,8 @@ define('timelineService', [
             this.classList.remove('active');
         }
     }
+
+    function setHighlightedNote(instrument, index, isHighlighted) {
+
+    }
 });
