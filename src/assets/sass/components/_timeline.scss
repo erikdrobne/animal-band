@@ -16,8 +16,13 @@
             background-color: $color-grey;
             transition: all .15s ease-in-out;
             cursor: pointer;
-            &:active, &.highlighted {
-                transform: scale(1.6);
+            &:active {
+                transform: scale(1.4);
+            }
+            &:not(:active) {
+                &.highlighted {
+                    transform: scale(1.4);
+                }
             }
         }
     }

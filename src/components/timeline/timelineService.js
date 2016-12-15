@@ -2,7 +2,8 @@ define('timelineService', [
     'domHelpers'
 ], function(domHelpers) {
     return {
-        toggleActiveNote: toggleActiveNote
+        toggleActiveNote: toggleActiveNote,
+        highlightNote: highlightNote
     };
 
     function toggleActiveNote(matrix) {
@@ -31,7 +32,13 @@ define('timelineService', [
         }
     }
 
-    function setHighlightedNote(instrument, index, isHighlighted) {
-
+    function highlightNote(instrument, index, time) {
+        var $noteSymbol = document.querySelector(
+            '.instrument[data-id="'+ instrument +'"] .note__symbol[data-index="'+ index +'"]'
+        );
+        $noteSymbol.classList.add('highlighted');
+        setTimeout(function () {
+            $noteSymbol.classList.remove('highlighted');
+        }, time);
     }
 });

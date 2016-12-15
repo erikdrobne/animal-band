@@ -9,4 +9,4 @@ define('audioService', function() {
             { detail: { rhythmIndex: rhythmIndex }}
         );
     }
-})
+});

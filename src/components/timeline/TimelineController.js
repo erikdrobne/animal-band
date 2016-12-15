@@ -20,7 +20,7 @@ define('TimelineController', [
         toggleActiveNotes();
         AudioController.init();
         updateGainValue();
-        checkRhytmIndex();
+        highlightRhytm();
     }
 
     function renderSequencer() {
@@ -90,10 +90,15 @@ define('TimelineController', [
             });
     }
 
-    function checkRhytmIndex() {
+    function highlightRhytm() {
         document.querySelector('.timeline')
             .addEventListener('animalBand.audio.rhythmIndex', function(e) {
-                console.log('event handle', e);
+                audioConfig.matrix.result.map(function(instrument, index) {
+                    var rhythmIndex = e.detail.rhythmIndex;
+                    if(audioConfig.matrix.entities[instrument][rhythmIndex]) {
+                        timelineService.highlightNote(instrument, rhythmIndex, 300);
+                    }
+                });
             });
     }
 });
