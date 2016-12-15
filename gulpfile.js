@@ -48,7 +48,9 @@ gulp.task('build-js-components', function() {
     return gulp.src('src/**/*.js')
         .pipe(concat('app.js'))
         .pipe(gulp.dest('build'))
-        .pipe(jshint())
+        .pipe(jshint({
+            lookup: true
+        }))
         .pipe(jshint.reporter('default'));
 });
 
