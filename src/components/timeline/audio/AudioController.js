@@ -105,7 +105,7 @@ define('AudioController', [
         source.buffer = buffer;
 
         source.connect(gainNode);
-       
+
         gainNode.connect(context.destination);
         source.start(time);
     }

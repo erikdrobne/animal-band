@@ -96,7 +96,11 @@ define('TimelineController', [
                 audioConfig.matrix.result.map(function(instrument, index) {
                     var rhythmIndex = e.detail.rhythmIndex;
                     if(audioConfig.matrix.entities[instrument][rhythmIndex]) {
-                        timelineService.highlightNote(instrument, rhythmIndex, 300);
+                        timelineService.highlightNote(
+                            instrument,
+                            rhythmIndex,
+                            60000 / audioConfig.tempo
+                        );
                     }
                 });
             });
