@@ -1,5 +1,0 @@
-define('animationService', [], function() {
-    return {
-
-    };
-});

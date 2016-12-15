@@ -1,4 +1,7 @@
 .band {
+    &__container {
+        height: 350px;
+    }
     canvas {
         display: block;
         margin: 0 auto;
