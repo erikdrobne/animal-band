@@ -1,8 +1,8 @@
-define('AnimationController', [], function() {
+define('BandController', [], function() {
     'use strict';
 
-    var $animationContainer =
-        document.querySelector('#animalBand .animation__container'),
+    var $bandContainer =
+        document.querySelector('#animalBand .band__container'),
         renderer,
         stage;
 
@@ -12,7 +12,7 @@ define('AnimationController', [], function() {
 
     function init() {
         var renderer = PIXI.autoDetectRenderer(600, 400);
-        $animationContainer.appendChild(renderer.view);
+        $bandContainer.appendChild(renderer.view);
 
         var stage = new PIXI.Container();
         renderer.render(stage);

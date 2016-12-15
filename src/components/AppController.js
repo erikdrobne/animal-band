@@ -1,9 +1,9 @@
 define('AppController', [
     'TimelineController',
-    'AnimationController'
-], function (TimelineController, AnimationController) {
+    'BandController'
+], function (TimelineController, BandController) {
     'use strict';
 
     TimelineController.init();
-    AnimationController.init();
+    BandController.init();
 });
