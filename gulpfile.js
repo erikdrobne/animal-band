@@ -23,6 +23,11 @@ gulp.task('copy-img', function() {
     gulp.src('src/assets/img/**/*.{gif,jpg,png,svg}').pipe(gulp.dest('build/assets/img'));
 });
 
+gulp.task('copy-animation', function() {
+    gulp.src('src/assets/animations/**/*.{atlas,png,json}').pipe(gulp.dest('build/assets/animations'));
+});
+
+
 gulp.task('copy-sounds', function() {
     gulp.src('src/assets/sounds/**/*.*').pipe(gulp.dest('build/assets/sounds'));
 });
@@ -68,9 +73,10 @@ gulp.task('webserver', function() {
     }));
 });
 
-gulp.task('default', ['copy-html', 'copy-img', 'copy-sounds', 'build-css', 'build-js-vendor', 'build-js-components', 'webserver'], function() {
+gulp.task('default', ['copy-html', 'copy-img', 'copy-sounds', 'build-css', 'build-js-vendor', 'build-js-components', 'copy-animation', 'webserver'], function() {
     gulp.watch('src/assets/sass/**/*.scss', ['build-css']);
     gulp.watch('src/assets/img/**/*.{gif,jpg,png,svg}', ['copy-img']);
+    gulp.watch('src/assets/animations/**/*.{atlas,png, json}', ['copy-animation']);
     gulp.watch('src/assets/sounds/**/*.*', ['copy-sounds']);
     gulp.watch('index.html', ['copy-html']);
     gulp.watch('src/**/*.js', ['build-js-components']);
