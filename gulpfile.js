@@ -12,8 +12,8 @@ var styles = [
     ],
     jsFiles = [
         'node_modules/pixi.js/dist/pixi.min.js',
-        'dragonBones/dragonBones.js',
-        'dragonBones/dragonBonesPixi.js',
+        'vendor/dragonBones/dragonBones.js',
+        'vendor/dragonBones/dragonBonesPixi.js',
         'node_modules/requirejs/require.js'
     ];
 
