@@ -11,9 +11,10 @@ var styles = [
         'src/assets/sass/main.scss'
     ],
     jsFiles = [
-        './node_modules/pixi.js/dist/pixi.min.js',
-        './dragonBonesPixi.js',
-        './node_modules/requirejs/require.js'
+        'node_modules/pixi.js/dist/pixi.min.js',
+        'dragonBones/dragonBones.js',
+        'dragonBones/dragonBonesPixi.js',
+        'node_modules/requirejs/require.js'
     ];
 
 gulp.task('copy-html', function() {
