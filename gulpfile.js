@@ -11,8 +11,9 @@ var styles = [
         'src/assets/sass/main.scss'
     ],
     jsFiles = [
-        'node_modules/pixi.js/dist/pixi.min.js',
-        'node_modules/requirejs/require.js'
+        './node_modules/pixi.js/dist/pixi.min.js',
+        './dragonBonesPixi.js',
+        './node_modules/requirejs/require.js'
     ];
 
 gulp.task('copy-html', function() {
@@ -26,7 +27,6 @@ gulp.task('copy-img', function() {
 gulp.task('copy-animation', function() {
     gulp.src('src/assets/animations/**/*.{atlas,png,json}').pipe(gulp.dest('build/assets/animations'));
 });
-
 
 gulp.task('copy-sounds', function() {
     gulp.src('src/assets/sounds/**/*.*').pipe(gulp.dest('build/assets/sounds'));
