@@ -34,9 +34,10 @@ define('BandController', [
 
         var stage = new PIXI.Container();
         var factory = new dragonBones.PixiFactory();
-        var zmaj = null;
-        var posast = null;
-        var posast2 = null;
+        var bizon = null;
+        var lev = null;
+        var slon = null;
+        var opica = null;
 
         //to more bit
         var backgroud = new PIXI.Sprite(PIXI.Texture.EMPTY);
@@ -45,56 +46,76 @@ define('BandController', [
             
             // Load data.
             PIXI.loader
-                .add("zmajBonesData", "assets/animations/zmaj/zmaj_ske.json")
-                .add("zmajTextureData", "assets/animations/zmaj/zmaj_tex.json")
-                .add("zmajAtlas", "assets/animations/zmaj/zmaj_tex.png")
-                .add("posastBonesData", "assets/animations/posast/posast_ske.json")
-                .add("posastTextureData", "assets/animations/posast/posast_tex.json")
-                .add("posastAtlas", "assets/animations/posast/posast_tex.png");
+                .add("bisonBonesData", "assets/animations/Bison/Bison_ske.json")
+                .add("bisonTextureData", "assets/animations/Bison/Bison_tex.json")
+                .add("bisonAtlas", "assets/animations/Bison/Bison_tex.png")
+                .add("lionBonesData", "assets/animations/Lion/Lion_ske.json")
+                .add("lionTextureData", "assets/animations/Lion/Lion_tex.json")
+                .add("lionAtlas", "assets/animations/Lion/Lion_tex.png")
+                .add("elephantBonesData", "assets/animations/Elephant/Elephant_ske.json")
+                .add("elephantTextureData", "assets/animations/Elephant/Elephant_tex.json")
+                .add("elephantAtlas", "assets/animations/Elephant/Elephant_tex.png")
+                .add("monkeyBonesData", "assets/animations/Monkey/Monkey_ske.json")
+                .add("monkeyTextureData", "assets/animations/Monkey/Monkey_tex.json")
+                .add("monkeyAtlas", "assets/animations/Monkey/Monkey_tex.png");
             PIXI.loader.once("complete", loadComplateHandler);
             PIXI.loader.load();
 
 
             function loadComplateHandler (loader, object) {
              // Parse data.
-                factory.parseDragonBonesData(object["zmajBonesData"].data);
-                factory.parseTextureAtlasData(object["zmajTextureData"].data, object["zmajAtlas"].texture);
-                factory.parseDragonBonesData(object["posastBonesData"].data);
-                factory.parseTextureAtlasData(object["posastTextureData"].data, object["posastAtlas"].texture);
+                factory.parseDragonBonesData(object["bisonBonesData"].data);
+                factory.parseTextureAtlasData(object["bisonTextureData"].data, object["bisonAtlas"].texture);
+                factory.parseDragonBonesData(object["lionBonesData"].data);
+                factory.parseTextureAtlasData(object["lionTextureData"].data, object["lionAtlas"].texture);
+                factory.parseDragonBonesData(object["elephantBonesData"].data);
+                factory.parseTextureAtlasData(object["elephantTextureData"].data, object["elephantAtlas"].texture);
+                factory.parseDragonBonesData(object["monkeyBonesData"].data);
+                factory.parseTextureAtlasData(object["monkeyTextureData"].data, object["monkeyAtlas"].texture);
                 
-                zmaj = factory.buildArmatureDisplay("zmaj");
-                posast = factory.buildArmatureDisplay("posast");
-                posast2 = factory.buildArmatureDisplay("posast");
+                bizon = factory.buildArmatureDisplay("Bison");
+                lev = factory.buildArmatureDisplay("Lion");
+                slon = factory.buildArmatureDisplay("Elephant");
+                opica = factory.buildArmatureDisplay("Monkey");
 
-                zmaj.scale.set(0.5);
-                zmaj.x = renderer.width * 0.2;
-                zmaj.y = renderer.height * 0.5 + 150;
+                bizon.scale.set(0.3);
+                bizon.x = renderer.width * 0.1;
+                bizon.y = renderer.height * 0.5;
 
-                posast.scale.set(0.5);
-                posast.x = renderer.width * 0.5;
-                posast.y = renderer.height * 0.5 + 150;
+                lev.scale.set(0.3);
+                lev.x = renderer.width * 0.2 * 1.3;
+                lev.y = renderer.height * 0.5 + 220;
 
-                posast2.scale.set(0.5);
-                posast2.x = renderer.width * 0.8;
-                posast2.y = renderer.height * 0.5 + 150;
+                slon.scale.set(0.3);
+                slon.x = renderer.width * 0.3 * 1.6;
+                slon.y = renderer.height * 0.5 + 90;
+
+                opica.scale.set(0.3);
+                opica.x = renderer.width * 0.4 * 1.7;
+                opica.y = renderer.height * 0.5 + 140;
+
                 
-                stage.addChild(zmaj);
-                stage.addChild(posast);
-                stage.addChild(posast2);
+                stage.addChild(bizon);
+                stage.addChild(lev);
+                stage.addChild(slon);
+                stage.addChild(opica);
 
                 stage.interactive = true;
                 stage.addChild(backgroud);
                 backgroud.width = renderer.width;
                 backgroud.height = renderer.height;
                 //s tem nadzoruješ hitrost animacije
-                zmaj.animation.timeScale = 1;
-                zmaj.animation.gotoAndPlay('stand', -1, -1, 0);
+                bizon.animation.timeScale = 1;
+                bizon.animation.gotoAndPlay('Idle', -1, -1, 0);
 
-                posast.animation.timeScale = 1;
-                posast.animation.gotoAndPlay('run', -1, -1, 0);
+                lev.animation.timeScale = 1;
+                lev.animation.gotoAndPlay('Idle', -1, -1, 0);
 
-                posast2.animation.timeScale = 1;
-                posast2.animation.gotoAndPlay('normalAttack', -1, -1, 0);
+                slon.animation.timeScale = 1;
+                slon.animation.gotoAndPlay('Idle', -1, -1, 0);
+
+                opica.animation.timeScale = 1;
+                opica.animation.gotoAndPlay('Idle', -1, -1, 0);
             }
 
             function renderHandler (deltaTime) {
