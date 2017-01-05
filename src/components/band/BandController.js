@@ -16,6 +16,7 @@ define('BandController', [
     function init() {
         setRenderer();
         setStage();
+        toggleAnimalAnimation();
     }
 
     function setRenderer() {
@@ -45,7 +46,7 @@ define('BandController', [
         //var backgroud = new PIXI.Sprite(PIXI.Texture.fromImage('assets/img/background.png'));
 
         PIXI.ticker.shared.add(renderHandler);
-            
+
             // Load data.
             PIXI.loader
                 .add("bisonBonesData", "assets/animations/Bison/Bison_ske.json")
@@ -106,7 +107,7 @@ define('BandController', [
                 girafe.x = renderer.width * 0.4 * 2.1;
                 girafe.y = renderer.height * 0.5 + 40;
 
-                
+
                 stage.addChild(bison);
                 stage.addChild(lion);
                 stage.addChild(elephant);
@@ -139,6 +140,24 @@ define('BandController', [
             function renderHandler (deltaTime) {
                 renderer.render(stage);
             };
-            
+
+    }
+
+    function toggleAnimalAnimation() {
+        document.querySelector('.timeline')
+            .addEventListener('animalBand.audio.rhythmIndex', function(e) {
+                console.log(e.detail);
+                // audioConfig.matrix.result.map(function(instrument, index) {
+                //     var rhythmIndex = e.detail.rhythmIndex;
+                //     if(audioConfig.matrix.entities[instrument][rhythmIndex]) {
+                //         timelineService.highlightNote(
+                //             instrument,
+                //             rhythmIndex,
+                //             60000 / audioConfig.tempo
+                //         );
+                //
+                //     }
+                // });
+            });
     }
 });

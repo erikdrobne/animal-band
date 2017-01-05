@@ -1,6 +1,6 @@
 define('audioConfig', function () {
     'use strict';
-    
+
     return {
         matrix: {
             entities: {
@@ -21,7 +21,7 @@ define('audioConfig', function () {
             'assets/sounds/samples/tom1.wav',
             'assets/sounds/samples/tom2.wav'
         ],
-        tempo: 59,
+        tempo: 60,
         loopLength: 8
     };
 });

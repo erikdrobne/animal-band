@@ -7,5 +7,4 @@ define('bandService', function() {
         renderer.view.style.position = 'absolute';
         renderer.view.style.display = 'block';
     }
-
 });
