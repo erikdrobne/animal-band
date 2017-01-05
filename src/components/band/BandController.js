@@ -1,13 +1,15 @@
 define('BandController', [
+    'audioConfig',
     'bandConfig',
     'bandService'
-], function(bandConfig, bandService) {
+], function(audioConfig, bandConfig, bandService) {
     'use strict';
 
     var $bandContainer =
         document.querySelector('#animalBand .band__container'),
         renderer,
-        stage;
+        stage,
+        animationObjects;
 
     return {
         init: init
@@ -35,11 +37,14 @@ define('BandController', [
 
         var stage = new PIXI.Container();
         var factory = new dragonBones.PixiFactory();
-        var bison = null;
-        var lion = null;
-        var elephant = null;
-        var monkey = null;
-        var girafe = null;
+        animationObjects = {
+            bison: null,
+            lion: null,
+            elephant: null,
+            monkey: null,
+            girafe: null
+        };
+
 
         //to more bit
         var backgroud = new PIXI.Sprite(PIXI.Texture.EMPTY);
@@ -81,38 +86,38 @@ define('BandController', [
                 factory.parseDragonBonesData(object["girafeBonesData"].data);
                 factory.parseTextureAtlasData(object["girafeTextureData"].data, object["girafeAtlas"].texture);
 
-                bison = factory.buildArmatureDisplay("Bison");
-                lion = factory.buildArmatureDisplay("Lion");
-                elephant = factory.buildArmatureDisplay("Elephant");
-                monkey = factory.buildArmatureDisplay("Monkey");
-                girafe = factory.buildArmatureDisplay("Girafe");
+                animationObjects.bison = factory.buildArmatureDisplay("Bison");
+                animationObjects.lion = factory.buildArmatureDisplay("Lion");
+                animationObjects.elephant = factory.buildArmatureDisplay("Elephant");
+                animationObjects.monkey = factory.buildArmatureDisplay("Monkey");
+                animationObjects.girafe = factory.buildArmatureDisplay("Girafe");
 
-                bison.scale.set(0.3);
-                bison.x = renderer.width * 0.1;
-                bison.y = renderer.height * 0.5;
+                animationObjects.bison.scale.set(0.3);
+                animationObjects.bison.x = renderer.width * 0.1;
+                animationObjects.bison.y = renderer.height * 0.5;
 
-                lion.scale.set(0.3);
-                lion.x = renderer.width * 0.2 * 1.3;
-                lion.y = renderer.height * 0.5 + 220;
+                animationObjects.lion.scale.set(0.3);
+                animationObjects.lion.x = renderer.width * 0.2 * 1.3;
+                animationObjects.lion.y = renderer.height * 0.5 + 220;
 
-                elephant.scale.set(0.3);
-                elephant.x = renderer.width * 0.3 * 1.6;
-                elephant.y = renderer.height * 0.5 + 90;
+                animationObjects.elephant.scale.set(0.3);
+                animationObjects.elephant.x = renderer.width * 0.3 * 1.6;
+                animationObjects.elephant.y = renderer.height * 0.5 + 90;
 
-                monkey.scale.set(0.3);
-                monkey.x = renderer.width * 0.4 * 1.7;
-                monkey.y = renderer.height * 0.5 + 120;
+                animationObjects.monkey.scale.set(0.3);
+                animationObjects.monkey.x = renderer.width * 0.4 * 1.7;
+                animationObjects.monkey.y = renderer.height * 0.5 + 120;
 
-                girafe.scale.set(0.25);
-                girafe.x = renderer.width * 0.4 * 2.1;
-                girafe.y = renderer.height * 0.5 + 40;
+                animationObjects.girafe.scale.set(0.25);
+                animationObjects.girafe.x = renderer.width * 0.4 * 2.1;
+                animationObjects.girafe.y = renderer.height * 0.5 + 40;
 
 
-                stage.addChild(bison);
-                stage.addChild(lion);
-                stage.addChild(elephant);
-                stage.addChild(monkey);
-                stage.addChild(girafe);
+                stage.addChild(animationObjects.bison);
+                stage.addChild(animationObjects.lion);
+                stage.addChild(animationObjects.elephant);
+                stage.addChild(animationObjects.monkey);
+                stage.addChild(animationObjects.girafe);
 
 
                 stage.interactive = true;
@@ -120,21 +125,21 @@ define('BandController', [
                 backgroud.width = renderer.width;
                 backgroud.height = renderer.height;
                 //s tem nadzoruješ hitrost animacije
-                bison.animation.timeScale = 1;
-                bison.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
-
-                lion.animation.timeScale = 1;
-                lion.animation.gotoAndPlay('PlayingRight_TomTom', -1, -1, 0);
-
-                elephant.animation.timeScale = 1;
-                elephant.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
-
-                monkey.animation.timeScale = 2;
-                monkey.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
-                //monkey.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
-
-                girafe.animation.timeScale = 1;
-                girafe.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
+                animationObjects.bison.animation.timeScale = 2;
+                // animationObjects.bison.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
+                //
+                animationObjects.lion.animation.timeScale = 2;
+                // animationObjects.lion.animation.gotoAndPlay('PlayingRight_TomTom', -1, -1, 0);
+                //
+                animationObjects.elephant.animation.timeScale = 2;
+                // animationObjects.elephant.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
+                //
+                animationObjects.monkey.animation.timeScale = 2;
+                // animationObjects.monkey.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
+                // //monkey.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
+                //
+                animationObjects.girafe.animation.timeScale = 2;
+                // animationObjects.girafe.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
             }
 
             function renderHandler (deltaTime) {
@@ -146,18 +151,23 @@ define('BandController', [
     function toggleAnimalAnimation() {
         document.querySelector('.timeline')
             .addEventListener('animalBand.audio.rhythmIndex', function(e) {
-                console.log(e.detail);
-                // audioConfig.matrix.result.map(function(instrument, index) {
-                //     var rhythmIndex = e.detail.rhythmIndex;
-                //     if(audioConfig.matrix.entities[instrument][rhythmIndex]) {
-                //         timelineService.highlightNote(
-                //             instrument,
-                //             rhythmIndex,
-                //             60000 / audioConfig.tempo
-                //         );
-                //
-                //     }
-                // });
+                audioConfig.matrix.result.map(function(instrument, index) {
+                    var rhythmIndex = e.detail.rhythmIndex,
+                        animation = bandConfig.animations[instrument],
+                        isSet = audioConfig.matrix.entities[instrument][rhythmIndex]
+                    ;
+
+                    if(isSet) {
+                        animationObjects[animation.id].animation.gotoAndPlay(
+                            animation.types[Math.floor(Math.random()*animation.types.length)],
+                            -1,
+                            -1,
+                            1
+                        );
+                    } else {
+                        animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
+                    }
+                });
             });
     }
 });

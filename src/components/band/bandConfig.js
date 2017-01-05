@@ -1,34 +1,34 @@
 define('bandConfig', function(){
     return {
         rendererOptions: { transparent: true },
-        instruments: {
+        animations: {
             basskick: {
-                animal: 'elephant',
-                animations: ['PlayingRight, PlayingLeft']
+                id: 'elephant',
+                types: ['PlayingRight', 'PlayingLeft']
             },
             cowbell: {
-                animal: 'bison',
-                animations: ['PlayingRight, PlayingLeft']
+                id: 'bison',
+                types: ['PlayingRight', 'PlayingLeft']
             },
             hihat: {
-                animal: 'girafe',
-                animations: ['PlayingRight, PlayingLeft']
+                id: 'girafe',
+                types: ['PlayingRight', 'PlayingLeft']
             },
             snare: {
-                animal: 'monkey',
-                animations: ['PlayingRight, PlayingLeft']
+                id: 'monkey',
+                types: ['PlayingRight', 'PlayingLeft']
             },
             tom1: {
-                animal: 'lion',
-                animations: ['PlayingLeft_Tom1', 'PlayingRight_Tom1']
+                id: 'lion',
+                types: ['PlayingLeft_Tom1', 'PlayingRight_Tom1']
             },
             tom2: {
-                animal: 'lion',
-                animations: ['PlayingLeft_Tom2', 'PlayingRight_Tom2']
-            }
+                id: 'lion',
+                types: ['PlayingLeft_Tom2', 'PlayingRight_Tom2']
+            },
             tom1_tom2: {
-                animal: 'lion',
-                animations: ['PlayingLeft_TomTom', 'PlayingRight_TomTom']
+                id: 'lion',
+                types: ['PlayingLeft_TomTom', 'PlayingRight_TomTom']
             }
         }
     };
