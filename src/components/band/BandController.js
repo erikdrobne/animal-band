@@ -12,7 +12,8 @@ define('BandController', [
         animationObjects;
 
     return {
-        init: init
+        init: init,
+        setIdle: setIdle
     };
 
     function init() {
@@ -34,8 +35,7 @@ define('BandController', [
 
     function setStage() {
 
-
-        var stage = new PIXI.Container();
+        stage = new PIXI.Container();
         var factory = new dragonBones.PixiFactory();
         animationObjects = {
             bison: null,
@@ -114,22 +114,7 @@ define('BandController', [
                 animationObjects.girafe.y = renderer.height * 0.5 + 40;
 
                 stage.addChild(backgroud);
-                stage.addChild(animationObjects.bison);
-                stage.addChild(animationObjects.lion);
-                stage.addChild(animationObjects.elephant);
-                stage.addChild(animationObjects.monkey);
-                stage.addChild(animationObjects.girafe);
-
-                animationObjects.bison.animation.timeScale = 1;
-                animationObjects.lion.animation.timeScale = 1;
-                animationObjects.elephant.animation.timeScale = 1;
-                animationObjects.monkey.animation.timeScale = 1;
-                animationObjects.girafe.animation.timeScale = 1;
-                animationObjects['bison'].animation.gotoAndPlay('Idle', -1, -1, 0);
-                animationObjects['lion'].animation.gotoAndPlay('Idle', -1, -1, 0);
-                animationObjects['elephant'].animation.gotoAndPlay('Idle', -1, -1, 0);
-                animationObjects['monkey'].animation.gotoAndPlay('Idle', -1, -1, 0);
-                animationObjects['girafe'].animation.gotoAndPlay('Idle', -1, -1, 0);
+                setIdle();
 
                 stage.interactive = true;
                
@@ -145,9 +130,30 @@ define('BandController', [
 
     }
 
+    function setIdle(){
+
+        stage.addChild(animationObjects.bison);
+        stage.addChild(animationObjects.lion);
+        stage.addChild(animationObjects.elephant);
+        stage.addChild(animationObjects.monkey);
+        stage.addChild(animationObjects.girafe);
+
+        animationObjects.bison.animation.timeScale = 1;
+        animationObjects.lion.animation.timeScale = 1;
+        animationObjects.elephant.animation.timeScale = 1;
+        animationObjects.monkey.animation.timeScale = 1;
+        animationObjects.girafe.animation.timeScale = 1;
+        animationObjects['bison'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
+        animationObjects['lion'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
+        animationObjects['elephant'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
+        animationObjects['monkey'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
+        animationObjects['girafe'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
+    }
+
     function toggleAnimalAnimation() {
         document.querySelector('.timeline')
             .addEventListener('animalBand.audio.rhythmIndex', function(e) {
+                
                 audioConfig.matrix.result.map(function(instrument, index) {
                     var rhythmIndex = e.detail.rhythmIndex,
                         animation = bandConfig.animations[instrument],
