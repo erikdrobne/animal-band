@@ -47,8 +47,8 @@ define('BandController', [
 
 
         //to more bit
-        var backgroud = new PIXI.Sprite(PIXI.Texture.EMPTY);
-        //var backgroud = new PIXI.Sprite(PIXI.Texture.fromImage('assets/img/background.png'));
+        //var backgroud = new PIXI.Sprite(PIXI.Texture.EMPTY);
+        var backgroud = new PIXI.Sprite(PIXI.Texture.fromImage('assets/img/background.png'));
 
         PIXI.ticker.shared.add(renderHandler);
 
@@ -92,54 +92,51 @@ define('BandController', [
                 animationObjects.monkey = factory.buildArmatureDisplay("Monkey");
                 animationObjects.girafe = factory.buildArmatureDisplay("Girafe");
 
-                animationObjects.lion.scale.set(0.3);
-                animationObjects.lion.x = renderer.width  * 0.2;
-                animationObjects.lion.y = renderer.height * 0.5 + 200;
-
-                animationObjects.bison.scale.set(0.3);
-                animationObjects.bison.x = renderer.width * 0.35;
-                animationObjects.bison.y = renderer.height * 0.4;
-
+                
                 animationObjects.elephant.scale.set(0.3);
-                animationObjects.elephant.x = renderer.width * 0.5;
+                animationObjects.elephant.x = renderer.width * 0.24;
                 animationObjects.elephant.y = renderer.height * 0.5 + 70;
 
+                animationObjects.bison.scale.set(0.3);
+                animationObjects.bison.x = renderer.width * 0.38;
+                animationObjects.bison.y = renderer.height * 0.5;
+
                 animationObjects.monkey.scale.set(0.3);
-                animationObjects.monkey.x = renderer.width * 0.65;
-                animationObjects.monkey.y = renderer.height * 0.5 + 120;
+                animationObjects.monkey.x = renderer.width * 0.5;
+                animationObjects.monkey.y = renderer.height * 0.5 + 100;
+
+                animationObjects.lion.scale.set(0.3);
+                animationObjects.lion.x = renderer.width  * 0.62;
+                animationObjects.lion.y = renderer.height * 0.5 + 190;
 
                 animationObjects.girafe.scale.set(0.25);
-                animationObjects.girafe.x = renderer.width * 0.78;
+                animationObjects.girafe.x = renderer.width * 0.75;
                 animationObjects.girafe.y = renderer.height * 0.5 + 40;
 
-
+                stage.addChild(backgroud);
                 stage.addChild(animationObjects.bison);
                 stage.addChild(animationObjects.lion);
                 stage.addChild(animationObjects.elephant);
                 stage.addChild(animationObjects.monkey);
                 stage.addChild(animationObjects.girafe);
 
+                animationObjects.bison.animation.timeScale = 1;
+                animationObjects.lion.animation.timeScale = 1;
+                animationObjects.elephant.animation.timeScale = 1;
+                animationObjects.monkey.animation.timeScale = 1;
+                animationObjects.girafe.animation.timeScale = 1;
+                animationObjects['bison'].animation.gotoAndPlay('Idle', -1, -1, 0);
+                animationObjects['lion'].animation.gotoAndPlay('Idle', -1, -1, 0);
+                animationObjects['elephant'].animation.gotoAndPlay('Idle', -1, -1, 0);
+                animationObjects['monkey'].animation.gotoAndPlay('Idle', -1, -1, 0);
+                animationObjects['girafe'].animation.gotoAndPlay('Idle', -1, -1, 0);
 
                 stage.interactive = true;
-                stage.addChild(backgroud);
+               
                 backgroud.width = renderer.width;
                 backgroud.height = renderer.height;
-                //s tem nadzoruješ hitrost animacije
-                animationObjects.bison.animation.timeScale = 2;
-                // animationObjects.bison.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
-                //
-                animationObjects.lion.animation.timeScale = 2;
-                // animationObjects.lion.animation.gotoAndPlay('PlayingRight_TomTom', -1, -1, 0);
-                //
-                animationObjects.elephant.animation.timeScale = 2;
-                // animationObjects.elephant.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
-                //
-                animationObjects.monkey.animation.timeScale = 2;
-                // animationObjects.monkey.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
-                // //monkey.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
-                //
-                animationObjects.girafe.animation.timeScale = 2;
-                // animationObjects.girafe.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
+                
+                
             }
 
             function renderHandler (deltaTime) {
@@ -163,21 +160,28 @@ define('BandController', [
                     if(isSet) {
                         if(isSetTom1Tom2){
                             if(animation.id == 'lion'){
+                                //animation play speed
+                                animationObjects[animation.id].animation.timeScale = 2;
                                 animationObjects['lion'].animation.gotoAndPlay(
                                 bandConfig.animations['tom1_tom2'].types[Math.floor(Math.random()*animation.types.length)], -1, -1, 1);
                              }
-                            else 
-                                animationObjects[animation.id].animation.gotoAndPlay(
-                            animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
+                            else {
+                                animationObjects[animation.id].animation.timeScale = 2;
+                                animationObjects[animation.id].animation.gotoAndPlay(animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
+                            }
+                           
+
                         }
-                        else
-                        animationObjects[animation.id].animation.gotoAndPlay(
-                            animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
-                        
+                        else{
+                            animationObjects[animation.id].animation.timeScale = 2;
+                            animationObjects[animation.id].animation.gotoAndPlay(animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
+                        }
                     } else {
                         //if tom1 is playing dont animate Idle for tom2
-                        if(!tom1)
-                        animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
+                        if(!tom1){
+                            animationObjects[animation.id].animation.timeScale = 2;
+                            animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
+                        }
                     }
                 });
             });

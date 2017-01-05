@@ -50,6 +50,7 @@ define('TimelineController', [
                 else
                     $noteSymbol.className = 'note__symbol';
                 
+                $note.setAttribute('ondragstart','return false;');
                 $noteSymbol.setAttribute('data-index', index);
                 $noteSymbol.setAttribute('data-value', note);
                 $note.className = 'note';
@@ -83,16 +84,48 @@ define('TimelineController', [
     function toggleActiveNotes() {
         var $noteSymbols = $timeline.querySelectorAll('.note__symbol'),
         i;
-
+        var target = null;
+        $noteSymbols
         for(i = 0; i < $noteSymbols.length; i++) {
             $noteSymbols[i]
                 .addEventListener(
-                    'click',
-                    function() {
+                    'mouseover',
+                    function(e) {
+                        if(e.which==1) {
                         timelineService.toggleActiveNote.call(
                             this,
                             audioConfig.matrix
                         );
+                        }
+                    }
+                );
+            //take care of touch screens
+             $timeline
+                .addEventListener(
+                    'touchmove',
+                    function(e) {
+                        var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
+                        if(newTarget!=target && newTarget.classList.contains('note__symbol'))
+                        {
+                            target = newTarget;
+                            timelineService.toggleActiveNote.call(
+                            newTarget,
+                            audioConfig.matrix
+                            );     
+                        }
+                    }
+                );
+     
+            $noteSymbols[i]
+                .addEventListener(
+                    'mousedown',
+                    function() {
+                       
+                        timelineService.toggleActiveNote.call(
+                            this,
+                            audioConfig.matrix
+                        );
+                        
                     }
                 );
         }
