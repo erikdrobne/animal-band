@@ -92,24 +92,24 @@ define('BandController', [
                 animationObjects.monkey = factory.buildArmatureDisplay("Monkey");
                 animationObjects.girafe = factory.buildArmatureDisplay("Girafe");
 
-                animationObjects.bison.scale.set(0.3);
-                animationObjects.bison.x = renderer.width * 0.1;
-                animationObjects.bison.y = renderer.height * 0.5;
-
                 animationObjects.lion.scale.set(0.3);
-                animationObjects.lion.x = renderer.width * 0.2 * 1.3;
-                animationObjects.lion.y = renderer.height * 0.5 + 220;
+                animationObjects.lion.x = renderer.width  * 0.2;
+                animationObjects.lion.y = renderer.height * 0.5 + 200;
+
+                animationObjects.bison.scale.set(0.3);
+                animationObjects.bison.x = renderer.width * 0.35;
+                animationObjects.bison.y = renderer.height * 0.4;
 
                 animationObjects.elephant.scale.set(0.3);
-                animationObjects.elephant.x = renderer.width * 0.3 * 1.6;
-                animationObjects.elephant.y = renderer.height * 0.5 + 90;
+                animationObjects.elephant.x = renderer.width * 0.5;
+                animationObjects.elephant.y = renderer.height * 0.5 + 70;
 
                 animationObjects.monkey.scale.set(0.3);
-                animationObjects.monkey.x = renderer.width * 0.4 * 1.7;
+                animationObjects.monkey.x = renderer.width * 0.65;
                 animationObjects.monkey.y = renderer.height * 0.5 + 120;
 
                 animationObjects.girafe.scale.set(0.25);
-                animationObjects.girafe.x = renderer.width * 0.4 * 2.1;
+                animationObjects.girafe.x = renderer.width * 0.78;
                 animationObjects.girafe.y = renderer.height * 0.5 + 40;
 
 
@@ -160,14 +160,21 @@ define('BandController', [
                         isSetTom1Tom2 = tom1 && tom2
                     ;
 
-                    if(isSet && !isSetTom1Tom2) {
+                    if(isSet) {
+                        if(isSetTom1Tom2){
+                            if(animation.id == 'lion'){
+                                animationObjects['lion'].animation.gotoAndPlay(
+                                bandConfig.animations['tom1_tom2'].types[Math.floor(Math.random()*animation.types.length)], -1, -1, 1);
+                             }
+                            else 
+                                animationObjects[animation.id].animation.gotoAndPlay(
+                            animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
+                        }
+                        else
                         animationObjects[animation.id].animation.gotoAndPlay(
                             animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
                         
-                    } else if(isSetTom1Tom2 ) {
-                        animationObjects['lion'].animation.gotoAndPlay(
-                            bandConfig.animations['tom1_tom2'].types[Math.floor(Math.random()*animation.types.length)], -1, -1, 1);
-                    }else {
+                    } else {
                         //if tom1 is playing dont animate Idle for tom2
                         if(!tom1)
                         animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
