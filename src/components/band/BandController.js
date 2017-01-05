@@ -154,17 +154,22 @@ define('BandController', [
                 audioConfig.matrix.result.map(function(instrument, index) {
                     var rhythmIndex = e.detail.rhythmIndex,
                         animation = bandConfig.animations[instrument],
-                        isSet = audioConfig.matrix.entities[instrument][rhythmIndex]
+                        isSet = audioConfig.matrix.entities[instrument][rhythmIndex],
+                        tom1 = audioConfig.matrix.entities['tom1'][rhythmIndex],
+                        tom2 = audioConfig.matrix.entities['tom2'][rhythmIndex],
+                        isSetTom1Tom2 = tom1 && tom2
                     ;
 
-                    if(isSet) {
+                    if(isSet && !isSetTom1Tom2) {
                         animationObjects[animation.id].animation.gotoAndPlay(
-                            animation.types[Math.floor(Math.random()*animation.types.length)],
-                            -1,
-                            -1,
-                            1
-                        );
-                    } else {
+                            animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
+                        
+                    } else if(isSetTom1Tom2 ) {
+                        animationObjects['lion'].animation.gotoAndPlay(
+                            bandConfig.animations['tom1_tom2'].types[Math.floor(Math.random()*animation.types.length)], -1, -1, 1);
+                    }else {
+                        //if tom1 is playing dont animate Idle for tom2
+                        if(!tom1)
                         animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
                     }
                 });

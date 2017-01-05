@@ -26,6 +26,15 @@ define('TimelineController', [
     function renderSequencer() {
         var $sequencer = $timeline.querySelector('.sequencer'),
             matrix = audioConfig.matrix;
+
+            //example1
+            matrix.entities.basskick=[true,false,true,false,true,false,true,false];
+            matrix.entities.cowbell=[false,true,false,true,false,true,false,true];
+            matrix.entities.hihat=[true,true,true,true,false,true,true,true];
+            matrix.entities.snare=[false,true,false,true,false,true,false,true];
+            matrix.entities.tom1=[false,true,false,false,false,true,false,false];
+            matrix.entities.tom2=[true,true,false,true,false,true,false,true];
+
         matrix.result.map(function(instrument, index) {
             var $instrument = document.createElement('div');
             $instrument.className = 'instrument';
@@ -34,7 +43,13 @@ define('TimelineController', [
             matrix.entities[instrument].map(function(note, index) {
                 var $note = document.createElement('div'),
                     $noteSymbol = document.createElement('div');
-                $noteSymbol.className = 'note__symbol';
+                 
+                if(note){
+                    $noteSymbol.className = 'note__symbol active';
+                }
+                else
+                    $noteSymbol.className = 'note__symbol';
+                
                 $noteSymbol.setAttribute('data-index', index);
                 $noteSymbol.setAttribute('data-value', note);
                 $note.className = 'note';
