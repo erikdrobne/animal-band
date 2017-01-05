@@ -16,6 +16,7 @@ define('AudioController', [
         quarterNoteTime = 60 / tempo,
         noteTime = 0.0,
         rhythmIndex = 0,
+        glasbaOzadje = document.getElementById("glasba-ozadje"),
         gainNode
     ;
 
@@ -27,6 +28,7 @@ define('AudioController', [
     };
 
     function init() {
+        glasbaOzadje.volume = 0.2;
         setAudioContext();
         if(context) {
             setAudioBuffer();
