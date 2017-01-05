@@ -83,17 +83,18 @@ define('TimelineController', [
 
     function toggleActiveNotes() {
         var $noteSymbols = $timeline.querySelectorAll('.note__symbol'),
+            $notes = $timeline.querySelectorAll('.note'),
         i;
         var target = null;
         $noteSymbols
         for(i = 0; i < $noteSymbols.length; i++) {
-            $noteSymbols[i]
+            $notes[i]
                 .addEventListener(
                     'mouseover',
                     function(e) {
                         if(e.which==1) {
                         timelineService.toggleActiveNote.call(
-                            this,
+                            this.children[0],
                             audioConfig.matrix
                         );
                         }
@@ -105,24 +106,24 @@ define('TimelineController', [
                     'touchmove',
                     function(e) {
                         var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
-                        if(newTarget!=target && newTarget.classList.contains('note__symbol'))
+                        if(newTarget!=target && newTarget.classList.contains('note'))
                         {
                             target = newTarget;
                             timelineService.toggleActiveNote.call(
-                            newTarget,
+                            newTarget.children[0],
                             audioConfig.matrix
                             );     
                         }
                     }
                 );
      
-            $noteSymbols[i]
+            $notes[i]
                 .addEventListener(
                     'mousedown',
                     function() {
                        
                         timelineService.toggleActiveNote.call(
-                            this,
+                            this.children[0],
                             audioConfig.matrix
                         );
                         
