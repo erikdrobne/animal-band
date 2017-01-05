@@ -43,4 +43,6 @@ define('timelineService', [
             $noteSymbol.classList.remove('highlighted');
         }, time);
     }
+
+   
 });

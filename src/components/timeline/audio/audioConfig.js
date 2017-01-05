@@ -21,7 +21,7 @@ define('audioConfig', function () {
             'assets/sounds/samples/tom1.wav',
             'assets/sounds/samples/tom2.wav'
         ],
-        tempo: 180,
+        tempo: 59,
         loopLength: 8
     };
 });

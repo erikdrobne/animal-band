@@ -42,6 +42,7 @@ define('BandController', [
 
         //to more bit
         var backgroud = new PIXI.Sprite(PIXI.Texture.EMPTY);
+        //var backgroud = new PIXI.Sprite(PIXI.Texture.fromImage('assets/img/background.png'));
 
         PIXI.ticker.shared.add(renderHandler);
             
@@ -99,7 +100,7 @@ define('BandController', [
 
                 monkey.scale.set(0.3);
                 monkey.x = renderer.width * 0.4 * 1.7;
-                monkey.y = renderer.height * 0.5 + 140;
+                monkey.y = renderer.height * 0.5 + 120;
 
                 girafe.scale.set(0.25);
                 girafe.x = renderer.width * 0.4 * 2.1;
@@ -119,19 +120,20 @@ define('BandController', [
                 backgroud.height = renderer.height;
                 //s tem nadzoruješ hitrost animacije
                 bison.animation.timeScale = 1;
-                bison.animation.gotoAndPlay('Idle', -1, -1, 0);
+                bison.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
 
                 lion.animation.timeScale = 1;
-                lion.animation.gotoAndPlay('Idle', -1, -1, 0);
+                lion.animation.gotoAndPlay('PlayingRight_TomTom', -1, -1, 0);
 
                 elephant.animation.timeScale = 1;
-                elephant.animation.gotoAndPlay('Idle', -1, -1, 0);
+                elephant.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
 
-                monkey.animation.timeScale = 1;
-                monkey.animation.gotoAndPlay('Idle', -1, -1, 0);
+                monkey.animation.timeScale = 2;
+                monkey.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
+                //monkey.animation.gotoAndPlay('PlayingLeft', -1, -1, 0);
 
                 girafe.animation.timeScale = 1;
-                girafe.animation.gotoAndPlay('Idle', -1, -1, 0);
+                girafe.animation.gotoAndPlay('PlayingRight', -1, -1, 0);
             }
 
             function renderHandler (deltaTime) {

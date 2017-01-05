@@ -1,9 +1,8 @@
 define('TimelineController', [
     'timelineService',
     'audioConfig',
-    'AudioController',
-    'BandController'
-], function(timelineService, audioConfig, AudioController, BandController) {
+    'AudioController'
+], function(timelineService, audioConfig, AudioController) {
     'use strict';
 
     var $timeline = document.querySelector('#animalBand .timeline'),
@@ -102,8 +101,11 @@ define('TimelineController', [
                             rhythmIndex,
                             60000 / audioConfig.tempo
                         );
+                       
                     }
                 });
             });
     }
+
+    
 });
