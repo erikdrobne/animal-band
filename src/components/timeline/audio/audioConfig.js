@@ -13,7 +13,7 @@ define('audioConfig', function () {
             },
             result: ['basskick', 'cowbell', 'hihat', 'snare', 'tom1', 'tom2']
         },
-        audioFiles: [
+        instrumentSamples: [
             'assets/sounds/samples/basskick.wav',
             'assets/sounds/samples/cowbell.wav',
             'assets/sounds/samples/hihat.wav',
@@ -21,6 +21,7 @@ define('audioConfig', function () {
             'assets/sounds/samples/tom1.wav',
             'assets/sounds/samples/tom2.wav'
         ],
+        backgroundSample: 'assets/sounds/samples/background-music.mp3',
         tempo: 60,
         loopLength: 8
     };

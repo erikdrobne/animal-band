@@ -103,7 +103,6 @@ define('TimelineController', [
                         this.children[0],
                         audioConfig.matrix
                     );
-
                 });
         }
 

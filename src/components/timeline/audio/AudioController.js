@@ -16,9 +16,8 @@ define('AudioController', [
         quarterNoteTime = 60 / tempo,
         noteTime = 0.0,
         rhythmIndex = 0,
-        glasbaOzadje = document.getElementById("glasba-ozadje"),
-        gainNode
-    ;
+        backgroundMusic,
+        gainNode;
 
     return {
         init: init,
@@ -28,20 +27,28 @@ define('AudioController', [
     };
 
     function init() {
-        glasbaOzadje.volume = 0.2;
+        setBackgroundMusic();
         setAudioContext();
         if(context) {
             setAudioBuffer();
             setTimeWorker();
-            setEffectsDefault();
+            setSoundEffects();
         }
+    }
+
+    function setBackgroundMusic() {
+        backgroundMusic = new Audio();
+        backgroundMusic.src = audioConfig.backgroundSample;
+        backgroundMusic.volume = 0.2;
+        backgroundMusic.loop = true;
+        backgroundMusic.autoplay = true;
     }
 
     function startPlaying() {
         noteTime = 0.0;
         startTime = context.currentTime + 0.005;
         scheduleSounds(buffer.bufferlist);
-        
+
         timerWorker.postMessage("start");
         //fix for first animation twich
        // setTimeout(function(){ timerWorker.postMessage("start"); }, 400);
@@ -64,7 +71,7 @@ define('AudioController', [
     function setAudioBuffer() {
         buffer = bufferLoader.getInstance(
             context,
-            audioConfig.audioFiles,
+            audioConfig.instrumentSamples,
             bufferLoadCompleted
         );
         buffer.load();
@@ -82,7 +89,7 @@ define('AudioController', [
         timerWorker.postMessage('init');
     }
 
-    function setEffectsDefault() {
+    function setSoundEffects() {
         gainNode = context.createGain();
         gainNode.gain.value = 1;
     }
