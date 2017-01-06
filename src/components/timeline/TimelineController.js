@@ -29,14 +29,6 @@ define('TimelineController', [
         var $sequencer = $timeline.querySelector('.sequencer'),
             matrix = audioConfig.matrix;
 
-            //example1
-            matrix.entities.basskick=[true,false,true,false,true,false,true,false];
-            matrix.entities.cowbell=[false,true,false,true,false,true,false,true];
-            matrix.entities.hihat=[true,true,true,true,false,true,true,true];
-            matrix.entities.snare=[false,true,false,true,false,true,false,true];
-            matrix.entities.tom1=[false,true,false,false,false,true,false,false];
-            matrix.entities.tom2=[true,true,false,true,false,true,false,true];
-
         matrix.result.map(function(instrument, index) {
             var $instrument = document.createElement('div');
             $instrument.className = 'instrument';
