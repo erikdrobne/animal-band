@@ -7,7 +7,8 @@ define('TimelineController', [
     'use strict';
 
     var $timeline = document.querySelector('#animalBand .timeline'),
-        isPlaying = false;
+        isPlaying = false,
+        lastClicked;
 
     return {
         init: init,
@@ -94,11 +95,13 @@ define('TimelineController', [
                 .addEventListener(
                     'mouseover',
                     function(e) {
-                        if(e.which==1) {
-                        timelineService.toggleActiveNote.call(
-                            this.children[0],
-                            audioConfig.matrix
-                        );
+                        if(e.which==1 && this!= lastClicked && this!= lastClicked.children[0]) {
+                            //console.log(this);
+                            timelineService.toggleActiveNote.call(
+                                this.children[0],
+                                audioConfig.matrix
+                            );
+                            lastClicked=this;
                         }
                     }
                 );
@@ -107,7 +110,7 @@ define('TimelineController', [
                 .addEventListener(
                     'mousedown',
                     function() {
-                       
+                        lastClicked=this;
                         timelineService.toggleActiveNote.call(
                             this.children[0],
                             audioConfig.matrix
