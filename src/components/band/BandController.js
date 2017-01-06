@@ -11,7 +11,8 @@ define('BandController', [
         stage,
         numberOfClicksOnMonkey = 0,
         text,
-        animationObjects;
+        animationObjects,
+        blinkingIdle;
 
     return {
         init: init,
@@ -156,11 +157,29 @@ define('BandController', [
         animationObjects.elephant.animation.timeScale = 1;
         animationObjects.monkey.animation.timeScale = 1;
         animationObjects.girafe.animation.timeScale = 1;
+
         animationObjects['bison'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
         animationObjects['lion'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
         animationObjects['elephant'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
         animationObjects['monkey'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
         animationObjects['girafe'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
+
+
+        
+       /* setInterval(function(){ 
+            audioConfig.matrix.result.map(function(instrument, index) {
+                var animation = bandConfig.animations[instrument]
+                var rand = Math.floor((Math.random() * 100) + 1);
+                if( rand < 10) {
+                    animationObjects[animation.id].animation.gotoAndPlay('Idle_Blink', 0.3, -1, 1);
+                }
+                else
+                {
+                    animationObjects[animation.id].animation.gotoAndPlay('Idle', 0.3, -1, 0);
+                }
+            });
+        }, 1000);
+        console.log(animationObjects['girafe']);*/
     }
 
     function toggleAnimalAnimation() {

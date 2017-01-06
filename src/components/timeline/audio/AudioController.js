@@ -42,9 +42,9 @@ define('AudioController', [
         startTime = context.currentTime + 0.005;
         scheduleSounds(buffer.bufferlist);
         
-        //timerWorker.postMessage("start");
-        //fix for first twich
-        setTimeout(function(){ timerWorker.postMessage("start"); }, 400);
+        timerWorker.postMessage("start");
+        //fix for first animation twich
+       // setTimeout(function(){ timerWorker.postMessage("start"); }, 400);
     }
 
     function stopPlaying() {
