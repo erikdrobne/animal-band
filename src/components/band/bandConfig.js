@@ -1,4 +1,4 @@
-define('bandConfig', function(){
+define('bandConfig', function() {
     return {
         rendererOptions: { transparent: true },
         animations: {
