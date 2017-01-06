@@ -27,7 +27,6 @@ Audio sampler
     $ gulp
 ```
 
-### Have fun
+## Have fun
 
 ![Animal Band](/docs/banner.png)
-Format: ![Alt Text]
