@@ -165,7 +165,7 @@ define('BandController', [
         animationObjects['girafe'].animation.gotoAndPlay('Idle', 0.3, -1, 0);
 
 
-        
+
        /* setInterval(function(){ 
             audioConfig.matrix.result.map(function(instrument, index) {
                 var animation = bandConfig.animations[instrument]
@@ -218,7 +218,18 @@ define('BandController', [
                         //if tom1 is playing dont animate Idle for tom2
                         if(!tom1){
                             animationObjects[animation.id].animation.timeScale = 2;
-                            animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
+                            
+                            //blinking if idle 
+                            var animation = bandConfig.animations[instrument]
+                            var rand = Math.floor((Math.random() * 100) + 1);
+                            if( rand < 10) {
+                                animationObjects[animation.id].animation.gotoAndPlay('Idle_Blink', -1, -1, 1);
+                            }
+                            else
+                            {
+                                 animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
+                            }
+               
                         }
                     }
                 });
