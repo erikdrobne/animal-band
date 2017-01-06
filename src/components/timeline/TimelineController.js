@@ -8,7 +8,7 @@ define('TimelineController', [
 
     var $timeline = document.querySelector('#animalBand .timeline'),
         isPlaying = false,
-        lastClicked;
+        lastClickedNote;
 
     return {
         init: init,
@@ -45,13 +45,13 @@ define('TimelineController', [
             matrix.entities[instrument].map(function(note, index) {
                 var $note = document.createElement('div'),
                     $noteSymbol = document.createElement('div');
-                 
+
                 if(note){
                     $noteSymbol.className = 'note__symbol active';
                 }
                 else
                     $noteSymbol.className = 'note__symbol';
-                
+
                 $note.setAttribute('ondragstart','return false;');
                 $noteSymbol.setAttribute('data-index', index);
                 $noteSymbol.setAttribute('data-value', note);
@@ -95,27 +95,27 @@ define('TimelineController', [
                 .addEventListener(
                     'mouseover',
                     function(e) {
-                        if(e.which==1 && this!= lastClicked && this!= lastClicked.children[0]) {
+                        if(e.which==1 && this!= lastClickedNote && this!= lastClickedNote.children[0]) {
                             //console.log(this);
                             timelineService.toggleActiveNote.call(
                                 this.children[0],
                                 audioConfig.matrix
                             );
-                            lastClicked=this;
+                            lastClickedNote=this;
                         }
                     }
                 );
-           
+
             $notes[i]
                 .addEventListener(
                     'mousedown',
                     function() {
-                        lastClicked=this;
+                        lastClickedNote=this;
                         timelineService.toggleActiveNote.call(
                             this.children[0],
                             audioConfig.matrix
                         );
-                        
+
                     }
                 );
         }
@@ -126,24 +126,24 @@ define('TimelineController', [
                 'touchmove',
                 function(e) {
                     var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
-                    
-                    if(lastClicked == null && newTarget.classList.contains('note')){
+
+                    if(lastClickedNote == null && newTarget.classList.contains('note')){
                         target = newTarget;
-                        lastClicked = newTarget;
+                        lastClickedNote = newTarget;
                         timelineService.toggleActiveNote.call(
                         newTarget.children[0],
                         audioConfig.matrix
-                        );     
+                        );
                     }
 
-                    else if(newTarget!=target && newTarget.classList.contains('note') && newTarget != lastClicked && newTarget != lastClicked.children[0])
+                    else if(newTarget!=target && newTarget.classList.contains('note') && newTarget != lastClickedNote && newTarget != lastClickedNote.children[0])
                     {
                         target = newTarget;
-                        lastClicked = newTarget;
+                        lastClickedNote = newTarget;
                         timelineService.toggleActiveNote.call(
                         newTarget.children[0],
                         audioConfig.matrix
-                        );     
+                        );
                     }
                 }
             );
@@ -152,7 +152,7 @@ define('TimelineController', [
             .addEventListener(
                 'touchend',
                 function(e) {
-                    lastClicked = null;
+                    lastClickedNote = null;
                 }
             );
     }
@@ -175,11 +175,11 @@ define('TimelineController', [
                             rhythmIndex,
                             60000 / audioConfig.tempo
                         );
-                       
+
                     }
                 });
             });
     }
 
-    
+
 });
