@@ -126,14 +126,33 @@ define('TimelineController', [
                 'touchmove',
                 function(e) {
                     var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
-                    if(newTarget!=target && newTarget.classList.contains('note'))
-                    {
+                    
+                    if(lastClicked == null && newTarget.classList.contains('note')){
                         target = newTarget;
+                        lastClicked = newTarget;
                         timelineService.toggleActiveNote.call(
                         newTarget.children[0],
                         audioConfig.matrix
                         );     
                     }
+
+                    else if(newTarget!=target && newTarget.classList.contains('note') && newTarget != lastClicked && newTarget != lastClicked.children[0])
+                    {
+                        target = newTarget;
+                        lastClicked = newTarget;
+                        timelineService.toggleActiveNote.call(
+                        newTarget.children[0],
+                        audioConfig.matrix
+                        );     
+                    }
+                }
+            );
+
+        $timeline
+            .addEventListener(
+                'touchend',
+                function(e) {
+                    lastClicked = null;
                 }
             );
     }
