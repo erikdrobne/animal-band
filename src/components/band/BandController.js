@@ -9,6 +9,8 @@ define('BandController', [
         document.querySelector('#animalBand .band__container'),
         renderer,
         stage,
+        numberOfClicksOnMonkey = 0,
+        text,
         animationObjects;
 
     return {
@@ -45,9 +47,6 @@ define('BandController', [
             girafe: null
         };
 
-
-        //to more bit
-        //var backgroud = new PIXI.Sprite(PIXI.Texture.EMPTY);
         var backgroud = new PIXI.Sprite(PIXI.Texture.fromImage('assets/img/background.png'));
 
         PIXI.ticker.shared.add(renderHandler);
@@ -92,7 +91,23 @@ define('BandController', [
                 animationObjects.monkey = factory.buildArmatureDisplay("Monkey");
                 animationObjects.girafe = factory.buildArmatureDisplay("Girafe");
 
+                animationObjects.monkey.interactive = true;
                 
+                animationObjects.monkey.mousedown = function(data){
+                    if(numberOfClicksOnMonkey==5){
+                        text.setText("Oh no, you did it now!");
+                         animationObjects.monkey.y = -1000;
+                         setTimeout(function(){ text.destroy(); }, 2000);
+                        
+                    }
+                    else if(numberOfClicksOnMonkey==3){
+                        text = new PIXI.Text("Don't poke the monkey!", {font:"50px Arial", fill:"gray", dropShadow: true});
+                        text.x = renderer.width * 0.32;
+                        text.y = renderer.height * 0.2;
+                        stage.addChild(text);
+                    }
+                    numberOfClicksOnMonkey++;
+                }
                 animationObjects.elephant.scale.set(0.3);
                 animationObjects.elephant.x = renderer.width * 0.24;
                 animationObjects.elephant.y = renderer.height * 0.5 + 70;
@@ -115,8 +130,6 @@ define('BandController', [
 
                 stage.addChild(backgroud);
                 setIdle();
-
-                stage.interactive = true;
                
                 backgroud.width = renderer.width;
                 backgroud.height = renderer.height;
