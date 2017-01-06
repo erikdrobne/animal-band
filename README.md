@@ -28,3 +28,6 @@ Audio sampler
 ```
 
 ### Have fun
+
+![Animal Band](/docs/banner.png)
+Format: ![Alt Text](url)
