@@ -8,7 +8,7 @@ define('TimelineController', [
 
     var $timeline = document.querySelector('#animalBand .timeline'),
         isPlaying = false,
-        lastClicked;
+        lastClickedNote;
 
     return {
         init: init,
@@ -29,14 +29,6 @@ define('TimelineController', [
         var $sequencer = $timeline.querySelector('.sequencer'),
             matrix = audioConfig.matrix;
 
-            //example1
-            matrix.entities.basskick=[true,false,true,false,true,false,true,false];
-            matrix.entities.cowbell=[false,true,false,true,false,true,false,true];
-            matrix.entities.hihat=[true,true,true,true,false,true,true,true];
-            matrix.entities.snare=[false,true,false,true,false,true,false,true];
-            matrix.entities.tom1=[false,true,false,false,false,true,false,false];
-            matrix.entities.tom2=[true,true,false,true,false,true,false,true];
-
         matrix.result.map(function(instrument, index) {
             var $instrument = document.createElement('div');
             $instrument.className = 'instrument';
@@ -45,13 +37,13 @@ define('TimelineController', [
             matrix.entities[instrument].map(function(note, index) {
                 var $note = document.createElement('div'),
                     $noteSymbol = document.createElement('div');
-                 
+
                 if(note){
                     $noteSymbol.className = 'note__symbol active';
                 }
                 else
                     $noteSymbol.className = 'note__symbol';
-                
+
                 $note.setAttribute('ondragstart','return false;');
                 $noteSymbol.setAttribute('data-index', index);
                 $noteSymbol.setAttribute('data-value', note);
@@ -92,69 +84,58 @@ define('TimelineController', [
         $noteSymbols
         for(i = 0; i < $noteSymbols.length; i++) {
             $notes[i]
-                .addEventListener(
-                    'mouseover',
-                    function(e) {
-                        if(e.which==1 && this!= lastClicked && this!= lastClicked.children[0]) {
-                            //console.log(this);
+                .addEventListener('mouseover', function(e) {
+                    if(e.which==1
+                        && this!= lastClickedNote
+                        && this!= lastClickedNote.children[0]) {
                             timelineService.toggleActiveNote.call(
                                 this.children[0],
                                 audioConfig.matrix
                             );
-                            lastClicked=this;
-                        }
+                            lastClickedNote=this;
                     }
-                );
-           
+                });
+
             $notes[i]
-                .addEventListener(
-                    'mousedown',
-                    function() {
-                        lastClicked=this;
-                        timelineService.toggleActiveNote.call(
-                            this.children[0],
-                            audioConfig.matrix
-                        );
-                        
-                    }
-                );
+                .addEventListener('mousedown', function() {
+                    lastClickedNote=this;
+                    timelineService.toggleActiveNote.call(
+                        this.children[0],
+                        audioConfig.matrix
+                    );
+                });
         }
 
         //take care of touch screens
         $timeline
-            .addEventListener(
-                'touchmove',
-                function(e) {
-                    var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
-                    
-                    if(lastClicked == null && newTarget.classList.contains('note')){
-                        target = newTarget;
-                        lastClicked = newTarget;
-                        timelineService.toggleActiveNote.call(
-                        newTarget.children[0],
-                        audioConfig.matrix
-                        );     
-                    }
+            .addEventListener('touchmove', function(e) {
+                var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
 
-                    else if(newTarget!=target && newTarget.classList.contains('note') && newTarget != lastClicked && newTarget != lastClicked.children[0])
-                    {
+                if(lastClickedNote == null
+                    && newTarget.classList.contains('note')) {
                         target = newTarget;
-                        lastClicked = newTarget;
+                        lastClickedNote = newTarget;
                         timelineService.toggleActiveNote.call(
-                        newTarget.children[0],
-                        audioConfig.matrix
-                        );     
-                    }
+                            newTarget.children[0],
+                            audioConfig.matrix
+                        );
+                } else if(newTarget!=target
+                    && newTarget.classList.contains('note')
+                    && newTarget != lastClickedNote
+                    && newTarget != lastClickedNote.children[0]) {
+                        target = newTarget;
+                        lastClickedNote = newTarget;
+                        timelineService.toggleActiveNote.call(
+                            newTarget.children[0],
+                            audioConfig.matrix
+                        );
                 }
-            );
+            });
 
         $timeline
-            .addEventListener(
-                'touchend',
-                function(e) {
-                    lastClicked = null;
-                }
-            );
+            .addEventListener('touchend', function(e) {
+                    lastClickedNote = null;
+            });
     }
 
     function updateGainValue() {
@@ -175,11 +156,8 @@ define('TimelineController', [
                             rhythmIndex,
                             60000 / audioConfig.tempo
                         );
-                       
                     }
                 });
             });
     }
-
-    
 });

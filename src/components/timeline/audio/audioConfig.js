@@ -4,16 +4,16 @@ define('audioConfig', function () {
     return {
         matrix: {
             entities: {
-                'basskick': [false, false, false, false, false, false, false, false],
-                'cowbell': [false, false, false, false, false, false, false, false],
-                'hihat': [false, false, false, false, false, false, false, false],
-                'snare': [false, false, false, false, false, false, false, false],
-                'tom1': [false, false, false, false, false, false, false, false],
-                'tom2': [false, false, false, false, false, false, false, false]
+                'basskick': [true, false, true, false, true, false, true, false],
+                'cowbell': [false, true, false, true, false, true, false, true],
+                'hihat': [true, true, true, true, false, true, true, true],
+                'snare': [false, true, false, true, false, true, false, true],
+                'tom1': [false, true, false, false, false, true, false, false],
+                'tom2': [true, true, false, true, false, true, false, true]
             },
             result: ['basskick', 'cowbell', 'hihat', 'snare', 'tom1', 'tom2']
         },
-        audioFiles: [
+        instrumentSamples: [
             'assets/sounds/samples/basskick.wav',
             'assets/sounds/samples/cowbell.wav',
             'assets/sounds/samples/hihat.wav',
@@ -21,6 +21,7 @@ define('audioConfig', function () {
             'assets/sounds/samples/tom1.wav',
             'assets/sounds/samples/tom2.wav'
         ],
+        backgroundSample: 'assets/sounds/samples/background-music.mp3',
         tempo: 60,
         loopLength: 8
     };

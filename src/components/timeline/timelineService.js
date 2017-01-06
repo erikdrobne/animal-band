@@ -2,14 +2,13 @@ define('timelineService', [
     'domHelpers'
 ], function(domHelpers) {
     'use strict';
-    
+
     return {
         toggleActiveNote: toggleActiveNote,
         highlightNote: highlightNote
     };
 
     function toggleActiveNote(matrix) {
-
         var index = parseInt(this.getAttribute('data-index')),
             instrument = domHelpers.findAncestor(this, 'instrument')
                 .getAttribute('data-id'),
@@ -33,7 +32,6 @@ define('timelineService', [
         } else {
             this.classList.remove('active');
         }
-
         highlightNote(instrument, index, 500);
     }
 
@@ -46,6 +44,4 @@ define('timelineService', [
             $noteSymbol.classList.remove('highlighted');
         }, time);
     }
-
-   
 });
