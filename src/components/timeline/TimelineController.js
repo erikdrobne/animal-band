@@ -102,23 +102,7 @@ define('TimelineController', [
                         }
                     }
                 );
-            //take care of touch screens
-             $timeline
-                .addEventListener(
-                    'touchmove',
-                    function(e) {
-                        var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
-                        if(newTarget!=target && newTarget.classList.contains('note'))
-                        {
-                            target = newTarget;
-                            timelineService.toggleActiveNote.call(
-                            newTarget.children[0],
-                            audioConfig.matrix
-                            );     
-                        }
-                    }
-                );
-     
+           
             $notes[i]
                 .addEventListener(
                     'mousedown',
@@ -132,6 +116,23 @@ define('TimelineController', [
                     }
                 );
         }
+
+        //take care of touch screens
+        $timeline
+            .addEventListener(
+                'touchmove',
+                function(e) {
+                    var newTarget = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
+                    if(newTarget!=target && newTarget.classList.contains('note'))
+                    {
+                        target = newTarget;
+                        timelineService.toggleActiveNote.call(
+                        newTarget.children[0],
+                        audioConfig.matrix
+                        );     
+                    }
+                }
+            );
     }
 
     function updateGainValue() {

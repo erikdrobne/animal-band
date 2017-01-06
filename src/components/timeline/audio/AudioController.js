@@ -41,6 +41,7 @@ define('AudioController', [
         noteTime = 0.0;
         startTime = context.currentTime + 0.005;
         scheduleSounds(buffer.bufferlist);
+         //tukaj mogoče z malo zamikom kliči timerWorkerpostmessage.
         timerWorker.postMessage("start");
     }
 
