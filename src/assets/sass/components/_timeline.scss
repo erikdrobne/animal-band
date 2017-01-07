@@ -33,28 +33,28 @@
     &[data-id="basskick"] {
         .note__symbol {
             &.active {
-                background-color: $color-yellow;
+                background-color: $color-dark-grey;
             }
         }
     }
     &[data-id="cowbell"] {
         .note__symbol {
             &.active {
-                background-color: $color-green;
+                background-color: $color-dark-brown;
             }
         }
     }
     &[data-id="hihat"] {
         .note__symbol {
             &.active {
-                background-color: $color-pink;
+                background-color: $color-yellow;
             }
         }
     }
     &[data-id="snare"] {
         .note__symbol {
             &.active {
-                background-color: $color-red;
+                background-color: $color-brown;
             }
         }
     }
@@ -68,7 +68,7 @@
     &[data-id="tom2"] {
         .note__symbol {
             &.active {
-                background-color: $color-blue;
+                background-color: $color-dark-blue;
             }
         }
     }
