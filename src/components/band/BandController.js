@@ -93,13 +93,13 @@ define('BandController', [
                 animationObjects.girafe = factory.buildArmatureDisplay("Girafe");
 
                 animationObjects.monkey.interactive = true;
-                
+
                 animationObjects.monkey.mousedown = function(data){
                     if(numberOfClicksOnMonkey==5){
                         text.setText("Oh no, you did it now!");
                          animationObjects.monkey.y = -1000;
                          setTimeout(function(){ text.destroy(); }, 2000);
-                        
+
                     }
                     else if(numberOfClicksOnMonkey==3){
                         text = new PIXI.Text("Don't poke the monkey!", {font:"50px Arial", fill:"gray", dropShadow: true});
@@ -131,11 +131,11 @@ define('BandController', [
 
                 stage.addChild(backgroud);
                 setIdle();
-               
+
                 backgroud.width = renderer.width;
                 backgroud.height = renderer.height;
-                
-                
+
+
             }
 
             function renderHandler (deltaTime) {
@@ -166,7 +166,7 @@ define('BandController', [
 
 
 
-       /* setInterval(function(){ 
+       /* setInterval(function(){
             audioConfig.matrix.result.map(function(instrument, index) {
                 var animation = bandConfig.animations[instrument]
                 var rand = Math.floor((Math.random() * 100) + 1);
@@ -185,7 +185,7 @@ define('BandController', [
     function toggleAnimalAnimation() {
         document.querySelector('.timeline')
             .addEventListener('animalBand.audio.rhythmIndex', function(e) {
-                
+
                 audioConfig.matrix.result.map(function(instrument, index) {
                     var rhythmIndex = e.detail.rhythmIndex,
                         animation = bandConfig.animations[instrument],
@@ -207,7 +207,7 @@ define('BandController', [
                                 animationObjects[animation.id].animation.timeScale = 2;
                                 animationObjects[animation.id].animation.gotoAndPlay(animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
                             }
-                           
+
 
                         }
                         else{
@@ -218,8 +218,8 @@ define('BandController', [
                         //if tom1 is playing dont animate Idle for tom2
                         if(!tom1){
                             animationObjects[animation.id].animation.timeScale = 2;
-                            
-                            //blinking if idle 
+
+                            //blinking if idle
                             var animation = bandConfig.animations[instrument]
                             var rand = Math.floor((Math.random() * 100) + 1);
                             if( rand < 10) {
@@ -229,7 +229,7 @@ define('BandController', [
                             {
                                  animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
                             }
-               
+
                         }
                     }
                 });
