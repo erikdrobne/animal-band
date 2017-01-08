@@ -1,9 +1,15 @@
 define('TimelineController', [
     'timelineService',
     'audioConfig',
+    'audioService',
     'AudioController',
     'BandController'
-], function(timelineService, audioConfig, AudioController, BandController) {
+], function(
+    timelineService,
+    audioConfig,
+    audioService,
+    AudioController,
+    BandController) {
     'use strict';
 
     var $timeline = document.querySelector('#animalBand .timeline'),
@@ -20,6 +26,7 @@ define('TimelineController', [
         renderSequencer();
         togglePlaying();
         toggleActiveNotes();
+        clearActiveNotes();
         AudioController.init();
         updateGainValue();
         highlightRhytm();
@@ -73,6 +80,21 @@ define('TimelineController', [
                         .classList.add('icon--play');
                     AudioController.stopPlaying();
                     BandController.setIdleAnimationState();
+                }
+            });
+    }
+
+    function clearActiveNotes() {
+        $timeline.querySelector('.btn--clear')
+            .addEventListener('click', function() {
+                audioConfig.matrix = audioService.clearAudioMatrix(
+                    audioConfig.matrix
+                );
+                var notes = $timeline.querySelectorAll('.note__symbol.active'),
+                    i;
+                for(i=0; i< notes.length; i++) {
+                    notes[i].classList.remove('active');
+                    notes[i].setAttribute('data-value', false);
                 }
             });
     }

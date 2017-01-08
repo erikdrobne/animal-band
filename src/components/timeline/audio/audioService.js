@@ -2,7 +2,8 @@ define('audioService', function() {
     'use strict';
 
     return {
-        getRhytmIndexEvent: getRhytmIndexEvent
+        getRhytmIndexEvent: getRhytmIndexEvent,
+        clearAudioMatrix: clearAudioMatrix
     };
 
     function getRhytmIndexEvent(rhythmIndex) {
@@ -10,5 +11,14 @@ define('audioService', function() {
             'animalBand.audio.rhythmIndex',
             { detail: { rhythmIndex: rhythmIndex }}
         );
+    }
+
+    function clearAudioMatrix(matrix) {
+        for(var item in matrix.entities) {
+            matrix.entities[item] = matrix.entities[item].map(function() {
+                return false;
+            });
+        }
+        return matrix;
     }
 });
