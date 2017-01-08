@@ -71,7 +71,7 @@ define('TimelineController', [
                     this.querySelector('.icon')
                         .classList.add('icon--play');
                     AudioController.stopPlaying();
-                    BandController.setIdle();
+                    BandController.setIdleAnimationState();
                 }
             });
     }
