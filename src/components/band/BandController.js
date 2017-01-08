@@ -1,8 +1,9 @@
 define('BandController', [
     'audioConfig',
     'bandConfig',
-    'bandService'
-], function(audioConfig, bandConfig, bandService) {
+    'bandService',
+    'arrayHelpers'
+], function(audioConfig, bandConfig, bandService, arrayHelpers) {
     'use strict';
 
     var $bandContainer =
@@ -22,7 +23,6 @@ define('BandController', [
     function init() {
         setRenderer();
         setStage();
-        toggleAnimalAnimation();
     }
 
     function setRenderer() {
@@ -39,14 +39,14 @@ define('BandController', [
     function setStage() {
         stage = new PIXI.Container();
         PIXI.ticker.shared.add(renderHandler);
-        setAnimalAnimation();
+        initAnimalAnimation();
 
         function renderHandler (deltaTime) {
             renderer.render(stage);
         };
     }
 
-    function setAnimalAnimation() {
+    function initAnimalAnimation() {
         var factory = new dragonBones.PixiFactory(),
             animationData;
 
@@ -83,6 +83,7 @@ define('BandController', [
                 animationObjects[animation].animation.gotoAndPlay('Idle', 0.3, -1, 0);
             }
             setBackground();
+            setMusicHandler();
             setIdleAnimationState();
         }
 
@@ -110,54 +111,57 @@ define('BandController', [
         }
     }
 
-    function toggleAnimalAnimation() {
+    function setMusicHandler() {
         document.querySelector('.timeline')
             .addEventListener('animalBand.audio.rhythmIndex', function(e) {
-
                 audioConfig.matrix.result.map(function(instrument, index) {
                     var rhythmIndex = e.detail.rhythmIndex,
-                        animation = bandConfig.animations[instrument],
-                        isSet = audioConfig.matrix.entities[instrument][rhythmIndex],
-                        tom1 = audioConfig.matrix.entities['tom1'][rhythmIndex],
-                        tom2 = audioConfig.matrix.entities['tom2'][rhythmIndex],
-                        isSetTom1Tom2 = tom1 && tom2
-                    ;
+                        animationId = bandConfig.animationsMapping[instrument],
+                        animationData = bandConfig.animations[animationId],
+                        isInstrumentSet = audioConfig.matrix.entities[instrument][rhythmIndex],
+                        isTom1Set = audioConfig.matrix.entities['tom1'][rhythmIndex],
+                        isTom2Set = audioConfig.matrix.entities['tom2'][rhythmIndex],
+                        animationType;
 
-                    if(isSet) {
-                        if(isSetTom1Tom2){
-                            if(animation.id == 'lion'){
-                                //animation play speed
-                                animationObjects[animation.id].animation.timeScale = 2;
-                                animationObjects['lion'].animation.gotoAndPlay(
-                                bandConfig.animations['tom1_tom2'].types[Math.floor(Math.random()*animation.types.length)], -1, -1, 1);
-                             }
-                            else {
-                                animationObjects[animation.id].animation.timeScale = 2;
-                                animationObjects[animation.id].animation.gotoAndPlay(animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
+                    if(isInstrumentSet) {
+                        if(animationId === 'lion') {
+                            if(isTom1Set && isTom2Set) {
+                                animationType = arrayHelpers.getRandomValue(
+                                    animationData.types.tom1tom2
+                                );
+                            } else if (isTom1Set) {
+                                animationType = arrayHelpers.getRandomValue(
+                                    animationData.types.tom1
+                                );
+                            } else if (isTom2Set) {
+                                animationType = arrayHelpers.getRandomValue(
+                                    animationData.types.tom2
+                                );
                             }
-
-
+                        } else {
+                            animationType = arrayHelpers.getRandomValue(
+                                animationData.types
+                            );
                         }
-                        else{
-                            animationObjects[animation.id].animation.timeScale = 2;
-                            animationObjects[animation.id].animation.gotoAndPlay(animation.types[Math.floor(Math.random()*animation.types.length)],-1,-1,1);
-                        }
+                        animationObjects[animationId].animation.timeScale = 2;
+                        animationObjects[animationId].animation.gotoAndPlay(
+                            animationType, -1, -1, 1
+                        );
                     } else {
-                        //if tom1 is playing dont animate Idle for tom2
-                        if(!tom1){
-                            animationObjects[animation.id].animation.timeScale = 2;
-
-                            //blinking if idle
+                        if(!isTom1Set){
+                            animationObjects[animationId].animation.timeScale = 2;
                             var animation = bandConfig.animations[instrument]
                             var rand = Math.floor((Math.random() * 100) + 1);
-                            if( rand < 10) {
-                                animationObjects[animation.id].animation.gotoAndPlay('Idle_Blink', -1, -1, 1);
+                            if(rand < 10) {
+                                animationObjects[animationId].animation.gotoAndPlay(
+                                    'Idle_Blink', -1, -1, 1
+                                );
                             }
-                            else
-                            {
-                                 animationObjects[animation.id].animation.gotoAndPlay('Idle', -1, -1, 1);
+                            else {
+                                 animationObjects[animationId].animation.gotoAndPlay(
+                                     'Idle', -1, -1, 1
+                                 );
                             }
-
                         }
                     }
                 });
