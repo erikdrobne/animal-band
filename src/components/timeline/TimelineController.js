@@ -23,6 +23,7 @@ define('TimelineController', [
         AudioController.init();
         updateGainValue();
         highlightRhytm();
+        handleVisibilityChange();
     }
 
     function renderSequencer() {
@@ -159,5 +160,13 @@ define('TimelineController', [
                     }
                 });
             });
+    }
+
+    function handleVisibilityChange() {
+        document.addEventListener('animalBand.visibility', function(e) {
+            if(!e.detail.isVisible && isPlaying) {
+                $timeline.querySelector('.btn--play').click();
+            }
+        });
     }
 });

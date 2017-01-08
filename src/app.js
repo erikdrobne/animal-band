@@ -5,4 +5,6 @@ requirejs.config({
     }
 });
 
-requirejs(['AppController']);
+requirejs(['AppController'], function(AppController) {
+    AppController.init();
+});
