@@ -148,20 +148,18 @@ define('BandController', [
                             animationType, -1, -1, 1
                         );
                     } else {
-                        if(!isTom1Set){
-                            animationObjects[animationId].animation.timeScale = 2;
-                            var animation = bandConfig.animations[instrument]
-                            var rand = Math.floor((Math.random() * 100) + 1);
-                            if(rand < 10) {
-                                animationObjects[animationId].animation.gotoAndPlay(
-                                    'Idle_Blink', -1, -1, 1
-                                );
-                            }
-                            else {
-                                 animationObjects[animationId].animation.gotoAndPlay(
-                                     'Idle', -1, -1, 1
-                                 );
-                            }
+                        animationObjects[animationId].animation.timeScale = 2;
+                        var animation = bandConfig.animations[instrument]
+                        var rand = Math.floor((Math.random() * 100) + 1);
+                        if(rand < 10) {
+                            animationObjects[animationId].animation.gotoAndPlay(
+                                'Idle_Blink', -1, -1, 1
+                            );
+                        }
+                        else {
+                            animationObjects[animationId].animation.gotoAndPlay(
+                                'Idle', -1, -1, 1
+                            );
                         }
                     }
                 });
